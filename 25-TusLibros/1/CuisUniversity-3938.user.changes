@@ -1,0 +1,646 @@
+
+
+----STARTUP---- (29 October 2019 20:27:49) as /home/jonno/exactas/ing1/cuis/TusLibros/CuisUniversity-3938.image!
+
+
+TestCase subclass: #CarritoTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CarritoTest category: #TusLibros stamp: 'js 10/29/2019 20:28:29'!
+TestCase subclass: #CarritoTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Cart category: #TusLibros stamp: 'js 10/29/2019 20:29:55'!
+Object subclass: #Cart
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CarritoTest methodsFor: 'nil' stamp: 'js 10/29/2019 20:29:47'!
+test01NewCartIsEmpty
+
+	| cart |
+	cart := Cart new.
+	
+	self assert: cart isEmpty.! !
+
+!testRun: #CarritoTest #test01NewCartIsEmpty stamp: 'js 10/29/2019 20:29:57'!
+ERROR!
+!Cart methodsFor: 'no messages' stamp: 'js 10/29/2019 20:30:45'!
+isEmpty
+
+	^ true.! !
+
+!testRun: #CarritoTest #test01NewCartIsEmpty stamp: 'js 10/29/2019 20:30:49'!
+PASSED!
+
+!testRun: #CarritoTest #test01NewCartIsEmpty stamp: 'js 10/29/2019 20:30:49'!
+PASSED!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:31:48'!
+test02CartWithABookIsNotEmpty
+
+	| cart |
+	cart := Cart new.
+	
+	cart addBook: 0001.
+	
+	self deny: cart isEmpty.! !
+
+!testRun: #CarritoTest #test02CartWithABookIsNotEmpty stamp: 'js 10/29/2019 20:31:50'!
+ERROR!
+!Cart methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:31:57'!
+addBook: aSmallInteger 
+	self shouldBeImplemented.! !
+
+!classDefinition: #Cart category: #TusLibros stamp: 'js 10/29/2019 20:32:30'!
+Object subclass: #Cart
+	instanceVariableNames: 'empty'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cart methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:32:28' prior: 50777403!
+addBook: anISBN
+ 
+	empty := false.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:32:48' prior: 50777385!
+isEmpty
+
+	^ empty .! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:32:58'!
+initialize
+
+	empty := true.! !
+
+!testRun: #CarritoTest #test02CartWithABookIsNotEmpty stamp: 'js 10/29/2019 20:33:01'!
+PASSED!
+
+!testRun: #CarritoTest #test01NewCartIsEmpty stamp: 'js 10/29/2019 20:33:05'!
+PASSED!
+
+!testRun: #CarritoTest #test02CartWithABookIsNotEmpty stamp: 'js 10/29/2019 20:33:05'!
+PASSED!
+
+!classDefinition: #CarritoTest category: #TusLibros stamp: 'js 10/29/2019 20:34:29'!
+TestCase subclass: #CarritoTest
+	instanceVariableNames: 'anISBN'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:34:28'!
+test02CartWithABookHasTheBook
+
+	| cart |
+	cart := Cart new.
+	
+	anISBN := 0001.
+	cart addBook: anISBN.
+	
+	self assert: (cart contains: anISBN).! !
+
+TestCase subclass: #CarritoTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CarritoTest category: #TusLibros stamp: 'js 10/29/2019 20:34:43'!
+TestCase subclass: #CarritoTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:34:53'!
+test03CartWithABookHasTheBook
+
+	| cart anISBN |
+	cart := Cart new.
+	
+	anISBN := 0001.
+	cart addBook: anISBN.
+	
+	self assert: (cart contains: anISBN).! !
+
+!methodRemoval: CarritoTest #test02CartWithABookHasTheBook stamp: 'js 10/29/2019 20:34:59'!
+test02CartWithABookHasTheBook
+
+	| cart |
+	cart := Cart new.
+	
+	anISBN := 0001.
+	cart addBook: anISBN.
+	
+	self assert: (cart contains: anISBN).!
+
+!testRun: #CarritoTest #test03CartWithABookHasTheBook stamp: 'js 10/29/2019 20:35:05'!
+ERROR!
+!Cart methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:35:10'!
+contains: aSmallInteger 
+	self shouldBeImplemented.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:35:20' prior: 50777477!
+contains: anISBN
+ 
+	^ true.! !
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:35:54'!
+test04EmptyCartDoesNotContainBook
+
+	| cart anISBN |
+	cart := Cart new.
+	
+	anISBN := 0001.
+	
+	self deny: (cart contains: anISBN).! !
+
+!testRun: #CarritoTest #test04EmptyCartDoesNotContainBook stamp: 'js 10/29/2019 20:35:55'!
+FAILURE!
+
+!classDefinition: #Cart category: #TusLibros stamp: 'js 10/29/2019 20:36:32'!
+Object subclass: #Cart
+	instanceVariableNames: 'empty books'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cart methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:36:31' prior: 50777482!
+contains: anISBN
+
+	^ books includes: anISBN. ! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:36:44' prior: 50777421!
+initialize
+	
+	books := OrderedCollection new.
+	empty := true.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:37:06' prior: 50777414!
+addBook: anISBN
+ 
+	empty := false.
+	books add: anISBN.! !
+
+!testRun: #CarritoTest #test04EmptyCartDoesNotContainBook stamp: 'js 10/29/2019 20:37:11'!
+PASSED!
+
+----SNAPSHOT----(29 October 2019 20:40:01) CuisUniversity-3938.image priorSource: 14319118!
+
+Object subclass: #Cart
+	instanceVariableNames: 'books'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Cart category: #TusLibros stamp: 'js 10/29/2019 20:40:39'!
+Object subclass: #Cart
+	instanceVariableNames: 'books'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cart methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:40:48' prior: 50777418!
+isEmpty
+
+	^ books isEmpty.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:40:54' prior: 50777513!
+addBook: anISBN
+ 
+	books add: anISBN.! !
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:42:15'!
+test05AddingZeroBooksToCartRaisesError
+
+	| cart anISBN |
+	cart := Cart new.
+	
+	anISBN := 0001.
+	
+	self deny: (cart contains: anISBN).! !
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:44:13' prior: 50777542!
+test05AddingZeroBooksToCartRaisesError
+
+	| cart anISBN aBook |
+	cart := Cart new.
+	
+	anISBN := 0001.
+	
+	self should: [ cart add: aBook withAmount: 0. ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [
+				
+		].
+	
+	self deny: (cart contains: anISBN).! !
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:45:26' prior: 50777550!
+test05AddingZeroBooksToCartRaisesError
+
+	| cart anISBN aBook |
+	cart := Cart new.
+	
+	anISBN := 0001.
+	
+	self should: [ cart add: anISBN withAmount: 0. ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert Cart errorMessageAmountZero equals: anError.
+			
+		].
+	
+	self deny: (cart contains: anISBN).! !
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:45:52' prior: 50777562!
+test05AddingZeroBooksToCartRaisesError
+
+	| cart anISBN aBook |
+	cart := Cart new.
+	
+	anISBN := 0001.
+	
+	self should: [ cart add: anISBN withAmount: 0. ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert Cart errorMessageAmountZero equals: anError.
+			
+		].
+	
+	self deny: (cart contains: anISBN).! !
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:46:17' prior: 50777576!
+test05AddingZeroBooksToCartRaisesError
+
+	| cart anISBN |
+	cart := Cart new.
+	
+	anISBN := 0001.
+	
+	self should: [ cart add: anISBN withAmount: 0. ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: Cart errorMessageAmountZero equals: anError.
+			self assert: cart isEmpty.
+		].
+	! !
+
+!testRun: #CarritoTest #test05AddingZeroBooksToCartRaisesError stamp: 'js 10/29/2019 20:46:22'!
+ERROR!
+!Cart methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:46:30'!
+add: aSmallInteger withAmount: aSmallInteger2 
+	self shouldBeImplemented.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:47:21' prior: 50777606!
+add: aBook withAmount: anAmount
+
+	(anAmount = 0) ifTrue: [ self error: self class errorMessageAmountZero ].
+! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:47:39' prior: 50777612!
+add: aBook withAmount: anAmount
+
+	(anAmount = 0) ifTrue: [ self error: self class errorMessageAmountZero ].
+	
+	books add: aBook.
+! !
+!Cart class methodsFor: 'no messages' stamp: 'js 10/29/2019 20:48:01'!
+errorMessageAmountZero
+
+	^ 'Cannot add zero books to cart.'! !
+
+!testRun: #CarritoTest #test05AddingZeroBooksToCartRaisesError stamp: 'js 10/29/2019 20:48:15'!
+FAILURE!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:48:35' prior: 50777590!
+test05AddingZeroBooksToCartRaisesError
+
+	| cart anISBN |
+	cart := Cart new.
+	
+	anISBN := 0001.
+	
+	self should: [ cart add: anISBN withAmount: 0. ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: Cart errorMessageAmountZero equals: anError messageText.
+			self assert: cart isEmpty.
+		].
+	! !
+
+!testRun: #CarritoTest #test05AddingZeroBooksToCartRaisesError stamp: 'js 10/29/2019 20:48:36'!
+PASSED!
+
+!testRun: #CarritoTest #test01NewCartIsEmpty stamp: 'js 10/29/2019 20:48:36'!
+PASSED!
+
+!testRun: #CarritoTest #test02CartWithABookIsNotEmpty stamp: 'js 10/29/2019 20:48:36'!
+PASSED!
+
+!testRun: #CarritoTest #test03CartWithABookHasTheBook stamp: 'js 10/29/2019 20:48:36'!
+PASSED!
+
+!testRun: #CarritoTest #test04EmptyCartDoesNotContainBook stamp: 'js 10/29/2019 20:48:36'!
+PASSED!
+
+!testRun: #CarritoTest #test05AddingZeroBooksToCartRaisesError stamp: 'js 10/29/2019 20:48:36'!
+PASSED!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:49:01' prior: 50777459!
+test03CartWithABookHasTheBook
+
+	| cart anISBN |
+	cart := Cart new.
+	
+	anISBN := 0001.
+	cart add: anISBN withAmount: 1.
+	
+	self assert: (cart contains: anISBN).! !
+
+!testRun: #CarritoTest #test03CartWithABookHasTheBook stamp: 'js 10/29/2019 20:49:03'!
+PASSED!
+
+!testRun: #CarritoTest #test01NewCartIsEmpty stamp: 'js 10/29/2019 20:49:03'!
+PASSED!
+
+!testRun: #CarritoTest #test02CartWithABookIsNotEmpty stamp: 'js 10/29/2019 20:49:03'!
+PASSED!
+
+!testRun: #CarritoTest #test03CartWithABookHasTheBook stamp: 'js 10/29/2019 20:49:03'!
+PASSED!
+
+!testRun: #CarritoTest #test04EmptyCartDoesNotContainBook stamp: 'js 10/29/2019 20:49:03'!
+PASSED!
+
+!testRun: #CarritoTest #test05AddingZeroBooksToCartRaisesError stamp: 'js 10/29/2019 20:49:03'!
+PASSED!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:49:43'!
+test06AddingNegativeAmountOfBooksToCartRaisesError
+
+	| cart anISBN |
+	cart := Cart new.
+	
+	anISBN := 0001.
+	
+	self should: [ cart add: anISBN withAmount: -1. ]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: Cart errorMessageAmountNegative equals: anError messageText.
+			self assert: cart isEmpty.
+		].
+	! !
+!Cart class methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:49:57'!
+errorMessageAmountNegative
+
+	^ 'Cannot add negative books to cart.'! !
+!Cart class methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:50:29' prior: 50777707!
+errorMessageAmountNegative
+
+	^ 'Cannot add negative amount of books to cart.'! !
+!Cart class methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:50:32' prior: 50777713!
+errorMessageAmountNegative
+
+	^ 'Cannot add a negative amount of books to cart.'! !
+
+!testRun: #CarritoTest #test06AddingNegativeAmountOfBooksToCartRaisesError stamp: 'js 10/29/2019 20:50:39'!
+FAILURE!
+!Cart methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:51:06' prior: 50777619!
+add: aBook withAmount: anAmount
+
+	(anAmount = 0) ifTrue: [ self error: self class errorMessageAmountZero ].
+	(anAmount < 0) ifTrue: [ self error: self class errorMessageAmountNegative ].
+	
+	books add: aBook.
+! !
+
+!testRun: #CarritoTest #test06AddingNegativeAmountOfBooksToCartRaisesError stamp: 'js 10/29/2019 20:51:10'!
+PASSED!
+
+!methodRemoval: Cart #addBook: stamp: 'js 10/29/2019 20:51:20'!
+addBook: anISBN
+ 
+	books add: anISBN.!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:51:29' prior: 50777394!
+test02CartWithABookIsNotEmpty
+
+	| cart |
+	cart := Cart new.
+	
+	cart add: 0001 withAmount: 1.
+	
+	self deny: cart isEmpty.! !
+
+!testRun: #CarritoTest #test01NewCartIsEmpty stamp: 'js 10/29/2019 20:51:35'!
+PASSED!
+
+!testRun: #CarritoTest #test02CartWithABookIsNotEmpty stamp: 'js 10/29/2019 20:51:35'!
+PASSED!
+
+!testRun: #CarritoTest #test03CartWithABookHasTheBook stamp: 'js 10/29/2019 20:51:35'!
+PASSED!
+
+!testRun: #CarritoTest #test04EmptyCartDoesNotContainBook stamp: 'js 10/29/2019 20:51:35'!
+PASSED!
+
+!testRun: #CarritoTest #test05AddingZeroBooksToCartRaisesError stamp: 'js 10/29/2019 20:51:35'!
+PASSED!
+
+!testRun: #CarritoTest #test06AddingNegativeAmountOfBooksToCartRaisesError stamp: 'js 10/29/2019 20:51:35'!
+PASSED!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:53:18'!
+test07BookAmountOfACartHasCorrectAmount
+
+	| cart anISBN |
+	cart := Cart new.
+	
+	anISBN := 0001.
+	
+	cart add: anISBN withAmount: 3.
+	self assert: 3 equals: (cart amountOf: anISBN).
+	! !
+
+!testRun: #CarritoTest #test07BookAmountOfACartHasCorrectAmount stamp: 'js 10/29/2019 20:53:21'!
+ERROR!
+!Cart methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:53:27'!
+amountOf: aSmallInteger 
+	self shouldBeImplemented.! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:53:37' prior: 50777784!
+amountOf: aBook
+
+	^ 3. ! !
+
+!testRun: #CarritoTest #test07BookAmountOfACartHasCorrectAmount stamp: 'js 10/29/2019 20:53:45'!
+PASSED!
+
+!testRun: #CarritoTest #test07BookAmountOfACartHasCorrectAmount stamp: 'js 10/29/2019 20:53:48'!
+PASSED!
+
+!testRun: #CarritoTest #test01NewCartIsEmpty stamp: 'js 10/29/2019 20:53:48'!
+PASSED!
+
+!testRun: #CarritoTest #test02CartWithABookIsNotEmpty stamp: 'js 10/29/2019 20:53:48'!
+PASSED!
+
+!testRun: #CarritoTest #test03CartWithABookHasTheBook stamp: 'js 10/29/2019 20:53:48'!
+PASSED!
+
+!testRun: #CarritoTest #test04EmptyCartDoesNotContainBook stamp: 'js 10/29/2019 20:53:48'!
+PASSED!
+
+!testRun: #CarritoTest #test05AddingZeroBooksToCartRaisesError stamp: 'js 10/29/2019 20:53:48'!
+PASSED!
+
+!testRun: #CarritoTest #test06AddingNegativeAmountOfBooksToCartRaisesError stamp: 'js 10/29/2019 20:53:48'!
+PASSED!
+
+!testRun: #CarritoTest #test07BookAmountOfACartHasCorrectAmount stamp: 'js 10/29/2019 20:53:48'!
+PASSED!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:55:07'!
+test08BookAmountOfACartHasCorrectAmount
+
+	| cart aBook1 |
+	cart := Cart new.
+	
+	aBook1 := 0001.
+	aBook1 := 0001.
+
+	cart add: aBook1 withAmount: 3.
+	cart add: aBook1 withAmount: 3.
+	self assert: 3 equals: (cart amountOf: aBook1).
+	! !
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:55:10' prior: 50777822!
+test08BookAmountOfACartHasCorrectAmount
+
+	| cart aBook1 aBook2 |
+	cart := Cart new.
+	
+	aBook1 := 0001.
+	aBook2 := 0001.
+
+	cart add: aBook1 withAmount: 3.
+	cart add: aBook1 withAmount: 3.
+	self assert: 3 equals: (cart amountOf: aBook1).
+	! !
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:55:33' prior: 50777833!
+test08BookAmountOfACartHasCorrectAmount
+
+	| cart aBook1 aBook2 |
+	cart := Cart new.
+	
+	aBook1 := 0001.
+	aBook2 := 0002.
+
+	cart add: aBook1 withAmount: 3.
+	cart add: aBook2 withAmount: 1.
+	
+	self assert: 3 equals: (cart amountOf: aBook1).
+	self assert: 1 equals: (cart amountOf: aBook2).
+	! !
+
+!testRun: #CarritoTest #test08BookAmountOfACartHasCorrectAmount stamp: 'js 10/29/2019 20:55:34'!
+FAILURE!
+!Cart methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:56:34' prior: 50777789!
+amountOf: aBook
+
+	^ books count: aBook.! !
+
+!methodRemoval: CarritoTest #test07BookAmountOfACartHasCorrectAmount stamp: 'js 10/29/2019 20:56:45'!
+test07BookAmountOfACartHasCorrectAmount
+
+	| cart anISBN |
+	cart := Cart new.
+	
+	anISBN := 0001.
+	
+	cart add: anISBN withAmount: 3.
+	self assert: 3 equals: (cart amountOf: anISBN).
+	!
+!CarritoTest methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:56:55'!
+test07BookAmountOfACartHasCorrectAmount
+
+	| cart aBook1 aBook2 |
+	cart := Cart new.
+	
+	aBook1 := 0001.
+	aBook2 := 0002.
+
+	cart add: aBook1 withAmount: 3.
+	cart add: aBook2 withAmount: 1.
+	
+	self assert: 3 equals: (cart amountOf: aBook1).
+	self assert: 1 equals: (cart amountOf: aBook2).
+	! !
+
+!methodRemoval: CarritoTest #test08BookAmountOfACartHasCorrectAmount stamp: 'js 10/29/2019 20:56:55'!
+test08BookAmountOfACartHasCorrectAmount
+
+	| cart aBook1 aBook2 |
+	cart := Cart new.
+	
+	aBook1 := 0001.
+	aBook2 := 0002.
+
+	cart add: aBook1 withAmount: 3.
+	cart add: aBook2 withAmount: 1.
+	
+	self assert: 3 equals: (cart amountOf: aBook1).
+	self assert: 1 equals: (cart amountOf: aBook2).
+	!
+
+!testRun: #CarritoTest #test07BookAmountOfACartHasCorrectAmount stamp: 'js 10/29/2019 20:56:58'!
+ERROR!
+
+!testRun: #CarritoTest #test07BookAmountOfACartHasCorrectAmount stamp: 'js 10/29/2019 20:57:08'!
+ERROR!
+
+!testRun: #CarritoTest #test07BookAmountOfACartHasCorrectAmount stamp: 'js 10/29/2019 20:57:15'!
+ERROR!
+!Cart methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:58:12' prior: 50777860!
+amountOf: aBook
+
+	^ books count: [:anElement | anElement = aBook].! !
+
+!testRun: #CarritoTest #test07BookAmountOfACartHasCorrectAmount stamp: 'js 10/29/2019 20:58:16'!
+FAILURE!
+
+!testRun: #CarritoTest #test07BookAmountOfACartHasCorrectAmount stamp: 'js 10/29/2019 20:58:16'!
+FAILURE!
+!Cart methodsFor: 'as yet unclassified' stamp: 'js 10/29/2019 20:58:58' prior: 50777729!
+add: aBook withAmount: anAmount
+
+	(anAmount = 0) ifTrue: [ self error: self class errorMessageAmountZero ].
+	(anAmount < 0) ifTrue: [ self error: self class errorMessageAmountNegative ].
+	
+	anAmount timesRepeat: [ books add: aBook ].
+! !
+
+!testRun: #CarritoTest #test07BookAmountOfACartHasCorrectAmount stamp: 'js 10/29/2019 20:59:02'!
+PASSED!
+
+!testRun: #CarritoTest #test07BookAmountOfACartHasCorrectAmount stamp: 'js 10/29/2019 20:59:15'!
+PASSED!
+
+!testRun: #CarritoTest #test01NewCartIsEmpty stamp: 'js 10/29/2019 20:59:18'!
+PASSED!
+
+!testRun: #CarritoTest #test02CartWithABookIsNotEmpty stamp: 'js 10/29/2019 20:59:18'!
+PASSED!
+
+!testRun: #CarritoTest #test03CartWithABookHasTheBook stamp: 'js 10/29/2019 20:59:18'!
+PASSED!
+
+!testRun: #CarritoTest #test04EmptyCartDoesNotContainBook stamp: 'js 10/29/2019 20:59:18'!
+PASSED!
+
+!testRun: #CarritoTest #test05AddingZeroBooksToCartRaisesError stamp: 'js 10/29/2019 20:59:19'!
+PASSED!
+
+!testRun: #CarritoTest #test06AddingNegativeAmountOfBooksToCartRaisesError stamp: 'js 10/29/2019 20:59:19'!
+PASSED!
+
+!testRun: #CarritoTest #test07BookAmountOfACartHasCorrectAmount stamp: 'js 10/29/2019 20:59:19'!
+PASSED!
+
+----SNAPSHOT----(29 October 2019 21:40:44) CuisUniversity-3938.image priorSource: 14267837!
+
+----STARTUP---- (31 October 2019 09:22:27) as /home/alejandra/facultad/isw1/cuis/linux64/CuisUniversity-3938.image!
+
+
+----SNAPSHOT----(31 October 2019 09:27:21) CuisUniversity-3938.image priorSource: 14281860!
+
+----SNAPSHOT----(31 October 2019 09:28:50) CuisUniversity-3938.image priorSource: 14282071!
+
+----QUIT----(31 October 2019 09:29:06) CuisUniversity-3938.image priorSource: 14282164!
+
+----STARTUP---- (31 October 2019 09:29:20) as /home/alejandra/facultad/isw1/cuis/linux64/CuisUniversity-3938.image!
+
+
+----QUIT----(31 October 2019 09:29:31) CuisUniversity-3938.image priorSource: 14282257!
