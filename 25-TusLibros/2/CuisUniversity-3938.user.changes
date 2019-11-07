@@ -1,0 +1,3406 @@
+
+
+----STARTUP---- (5 November 2019 19:59:52) as /home/jonno/exactas/ing1/cuis/TusLibros2/CuisUniversity-3938.image!
+
+
+----End fileIn of /home/jonno/exactas/ing1/cuis/TusLibros2/TusLibros.st----!
+
+
+!methodRemoval: CashierTest #testXXXXXXXXXX stamp: 'js 11/5/2019 20:06:28'!
+testXXXXXXXXXX
+
+	|cashier aCart aMerchantProcessorSimulator cardDate cardId cardName creditCard dateToTest |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	aMerchantProcessorSimulator := MerchantProcessorSimulator returning:
+		[ ^ MerchantProcessorSimulator error: MerchantProcessorSimulator financialErrorMsg ].
+
+	cashier := Cashier new.
+	cardId := '0123456789012345'.
+	cardName := 'Ada'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2019 monthNumber: 1 dayNumber: 1).
+
+	self should: [ cashier checkOut: aCart
+							onDate: dateToTest
+							withCreditCard: creditCard
+							withMP: aMerchantProcessorSimulator. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: MerchantProcessorSimulator financialErrorMsg.
+		 ]!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:10:21'!
+test04CheckOutWithLongCardNameRaisesError
+
+	|cashier aCart|
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cashier := Cashier new.
+	"
+	self should: [cashier checkOut: aCart
+							withCardNumber: '00001234567891011'
+							withCardOwner: 'aNameLongerThanThirtyCharacters'
+							withCardExpirationDate: May/17/2020
+							withMP: self defaultSimulatedMP. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+							self assert: cashier invalidCardErrorMessage equals: anError messageText . ].
+	"! !
+
+!methodRemoval: CashierTest #test04XXXXXXXXXXXXXXXXXXXXXXXCheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 20:10:25'!
+test04XXXXXXXXXXXXXXXXXXXXXXXCheckOutWithLongCardNameRaisesError
+
+	|cashier aCart|
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cashier := Cashier new.
+	"
+	self should: [cashier checkOut: aCart
+							withCardNumber: '00001234567891011'
+							withCardOwner: 'aNameLongerThanThirtyCharacters'
+							withCardExpirationDate: May/17/2020
+							withMP: self defaultSimulatedMP. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+							self assert: cashier invalidCardErrorMessage equals: anError messageText . ].
+	"!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:11:03' prior: 50778338!
+test04CheckOutWithLongCardNameRaisesError
+
+	|cashier aCart cardDate cardId cardName creditCard dateToTest |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cardId := '0123456789012345'.
+	cardName := 'aNameLongerThanThirtyCharacters'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2019 monthNumber: 1 dayNumber: 1).
+
+	cashier := Cashier new.
+
+	self should: [cashier checkOut: aCart
+							withCardNumber: '00001234567891011'
+							withCardOwner: 'aNameLongerThanThirtyCharacters'
+							withCardExpirationDate: May/17/2020
+							withMP: self defaultSimulatedMP. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+							self assert: cashier invalidCardErrorMessage equals: anError messageText . ].
+	! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:11:24' prior: 50778380!
+test04CheckOutWithLongCardNameRaisesError
+
+	|cashier aCart cardDate cardId cardName creditCard dateToTest |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cardId := '0123456789012345'.
+	cardName := 'aNameLongerThanThirtyCharacters'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2019 monthNumber: 1 dayNumber: 1).
+
+	cashier := Cashier new.
+
+	self should: [cashier checkOut: aCart
+							onDate: dateToTest
+							withCreditCard: creditCard
+							withMP: self defaultSimulatedMP. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+							self assert: cashier invalidCardErrorMessage equals: anError messageText . ].
+	! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:11:52' prior: 50778412!
+test04CheckOutWithLongCardNameRaisesError
+
+	| cashier aCart cardDate cardId cardName creditCard dateToTest |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cardId := '0123456789012345'.
+	cardName := 'aNameLongerThanThirtyCharacters'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2019 monthNumber: 1 dayNumber: 1).
+
+	cashier := Cashier new.
+
+	self should: [cashier checkOut: aCart
+							onDate: dateToTest
+							withCreditCard: creditCard
+							withMP: self defaultSimulatedMP. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+							self assert: cashier invalidCardErrorMessage equals: anError messageText . ].
+	! !
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 20:11:53'!
+FAILURE!
+!Cashier methodsFor: 'checkout' stamp: 'js 11/5/2019 20:13:44' prior: 50777850!
+assertValidCardName: creditCard
+
+	(creditCard nameLength > 30) ifTrue: [self error: self invalidCardErrorMessage ].
+! !
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'js 11/5/2019 20:13:58'!
+nameLength
+
+	^ name size.
+! !
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 20:14:04'!
+FAILURE!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 20:14:10'!
+FAILURE!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 20:14:10'!
+FAILURE!
+!Cashier methodsFor: 'checkout' stamp: 'js 11/5/2019 20:14:46' prior: 50777854!
+checkOut: aCart onDate: dateToTest withCreditCard: creditCard  withMP: aMP
+
+	| subtotal |
+
+	self assertValidCardName: creditCard.
+
+	subtotal := self totalCost: aCart .
+	aMP debit: subtotal from: creditCard.
+
+	^ subtotal .! !
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 20:14:51'!
+PASSED!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:15:25' prior: 50778441!
+test04CheckOutWithLongCardNameRaisesError
+
+	"Consideramos que no tiene sentido enviarle al MerchantProcessor un nombre de mas de 30 caracteres cuando ya sabemos que es invalido"
+
+	| cashier aCart cardDate cardId cardName creditCard dateToTest |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cardId := '0123456789012345'.
+	cardName := 'aNameLongerThanThirtyCharacters'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2019 monthNumber: 1 dayNumber: 1).
+
+	cashier := Cashier new.
+
+	self should: [cashier checkOut: aCart
+							onDate: dateToTest
+							withCreditCard: creditCard
+							withMP: self defaultSimulatedMP. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+							self assert: cashier invalidCardErrorMessage equals: anError messageText . ].
+	! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:17:08' prior: 50777568!
+test05
+
+	|cashier aCart cardDate cardId cardName creditCard dateToTest |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cashier := Cashier new.
+
+	cardId := '0123456789012345'.
+	cardName := 'Ada'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+	dateToTest := (FixedGregorianDate yearNumber: 2019 monthNumber: 1 dayNumber: 1).
+
+	self should: [cashier checkOut: aCart
+							onDate: dateToTest
+							withCreditCard: creditCard
+							withMP: self defaultSimulatedMP. ]
+
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+							self assert: cashier invalidCardErrorMessage equals: anError messageText . ].
+	! !
+
+!methodRemoval: CashierTest #test05 stamp: 'js 11/5/2019 20:17:45'!
+test05
+
+	|cashier aCart cardDate cardId cardName creditCard dateToTest |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cashier := Cashier new.
+
+	cardId := '0123456789012345'.
+	cardName := 'Ada'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+	dateToTest := (FixedGregorianDate yearNumber: 2019 monthNumber: 1 dayNumber: 1).
+
+	self should: [cashier checkOut: aCart
+							onDate: dateToTest
+							withCreditCard: creditCard
+							withMP: self defaultSimulatedMP. ]
+
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+							self assert: cashier invalidCardErrorMessage equals: anError messageText . ].
+	!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:17:49'!
+test05CheckoutWithMPErrorCanBeHandledCorrectly
+
+	|cashier aCart aMerchantProcessorSimulator cardDate cardId cardName creditCard dateToTest |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	aMerchantProcessorSimulator := MerchantProcessorSimulator returning:
+		[ ^ MerchantProcessorSimulator error: MerchantProcessorSimulator financialErrorMsg ].
+
+	cashier := Cashier new.
+	cardId := '0123456789012345'.
+	cardName := 'Ada'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2019 monthNumber: 1 dayNumber: 1).
+
+	self should: [ cashier checkOut: aCart
+							onDate: dateToTest
+							withCreditCard: creditCard
+							withMP: aMerchantProcessorSimulator. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: MerchantProcessorSimulator financialErrorMsg.
+		 ]! !
+
+!methodRemoval: CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 20:17:49'!
+test06CheckoutWithMPErrorCanBeHandledCorrectly
+
+	|cashier aCart aMerchantProcessorSimulator cardDate cardId cardName creditCard dateToTest |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	aMerchantProcessorSimulator := MerchantProcessorSimulator returning:
+		[ ^ MerchantProcessorSimulator error: MerchantProcessorSimulator financialErrorMsg ].
+
+	cashier := Cashier new.
+	cardId := '0123456789012345'.
+	cardName := 'Ada'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2019 monthNumber: 1 dayNumber: 1).
+
+	self should: [ cashier checkOut: aCart
+							onDate: dateToTest
+							withCreditCard: creditCard
+							withMP: aMerchantProcessorSimulator. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: MerchantProcessorSimulator financialErrorMsg.
+		 ]!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:22:34'!
+test06CheckoutWithMPErrorCanBeHandledCorrectly
+
+	|cashier aCart aMerchantProcessorSimulator cardDate cardId cardName creditCard dateToTest |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	aMerchantProcessorSimulator := MerchantProcessorSimulator returning:
+		[ ^ MerchantProcessorSimulator error: MerchantProcessorSimulator financialErrorMsg ].
+
+	cashier := Cashier new.
+	cardId := '0123456789012345'.
+	cardName := 'Ada'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2019 monthNumber: 1 dayNumber: 1).
+
+	self should: [ cashier checkOut: aCart
+							onDate: dateToTest
+							withCreditCard: creditCard
+							withMP: aMerchantProcessorSimulator. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: MerchantProcessorSimulator financialErrorMsg.
+		 ]! !
+
+!methodRemoval: CashierTest #test05CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 20:22:34'!
+test05CheckoutWithMPErrorCanBeHandledCorrectly
+
+	|cashier aCart aMerchantProcessorSimulator cardDate cardId cardName creditCard dateToTest |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	aMerchantProcessorSimulator := MerchantProcessorSimulator returning:
+		[ ^ MerchantProcessorSimulator error: MerchantProcessorSimulator financialErrorMsg ].
+
+	cashier := Cashier new.
+	cardId := '0123456789012345'.
+	cardName := 'Ada'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2019 monthNumber: 1 dayNumber: 1).
+
+	self should: [ cashier checkOut: aCart
+							onDate: dateToTest
+							withCreditCard: creditCard
+							withMP: aMerchantProcessorSimulator. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: MerchantProcessorSimulator financialErrorMsg.
+		 ]!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:23:06'!
+test05
+
+	| cashier aCart cardDate cardId cardName creditCard dateToTest |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cardId := '0123456789012345'.
+	cardName := 'Ada'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2022 monthNumber: 1 dayNumber: 1).
+
+	cashier := Cashier new.
+
+	self should: [cashier checkOut: aCart
+							onDate: dateToTest
+							withCreditCard: creditCard
+							withMP: self defaultSimulatedMP. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+				self assert: cashier invalidCardErrorMessage equals: anError messageText . ].
+	! !
+
+!testRun: #CashierTest #test05 stamp: 'js 11/5/2019 20:23:08'!
+FAILURE!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:23:23'!
+test05ExpiredCardShouldRaiseErrorOnCheckout
+
+	| cashier aCart cardDate cardId cardName creditCard dateToTest |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cardId := '0123456789012345'.
+	cardName := 'Ada'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2022 monthNumber: 1 dayNumber: 1).
+
+	cashier := Cashier new.
+
+	self should: [cashier checkOut: aCart
+							onDate: dateToTest
+							withCreditCard: creditCard
+							withMP: self defaultSimulatedMP. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+				self assert: cashier invalidCardErrorMessage equals: anError messageText . ].
+	! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:23:36'!
+test05ExpiredCardShouldRaiseErrorWithCashier
+
+	| cashier aCart cardDate cardId cardName creditCard dateToTest |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cardId := '0123456789012345'.
+	cardName := 'Ada'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2022 monthNumber: 1 dayNumber: 1).
+
+	cashier := Cashier new.
+
+	self should: [cashier checkOut: aCart
+							onDate: dateToTest
+							withCreditCard: creditCard
+							withMP: self defaultSimulatedMP. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+				self assert: cashier invalidCardErrorMessage equals: anError messageText . ].
+	! !
+
+!methodRemoval: CashierTest #test05ExpiredCardShouldRaiseErrorOnCheckout stamp: 'js 11/5/2019 20:23:38'!
+test05ExpiredCardShouldRaiseErrorOnCheckout
+
+	| cashier aCart cardDate cardId cardName creditCard dateToTest |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cardId := '0123456789012345'.
+	cardName := 'Ada'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2022 monthNumber: 1 dayNumber: 1).
+
+	cashier := Cashier new.
+
+	self should: [cashier checkOut: aCart
+							onDate: dateToTest
+							withCreditCard: creditCard
+							withMP: self defaultSimulatedMP. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+				self assert: cashier invalidCardErrorMessage equals: anError messageText . ].
+	!
+
+!methodRemoval: CashierTest #test05 stamp: 'js 11/5/2019 20:23:39'!
+test05
+
+	| cashier aCart cardDate cardId cardName creditCard dateToTest |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cardId := '0123456789012345'.
+	cardName := 'Ada'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2022 monthNumber: 1 dayNumber: 1).
+
+	cashier := Cashier new.
+
+	self should: [cashier checkOut: aCart
+							onDate: dateToTest
+							withCreditCard: creditCard
+							withMP: self defaultSimulatedMP. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+				self assert: cashier invalidCardErrorMessage equals: anError messageText . ].
+	!
+!Cashier methodsFor: 'checkout' stamp: 'js 11/5/2019 20:24:35' prior: 50778495!
+checkOut: aCart onDate: checkoutDate withCreditCard: creditCard  withMP: aMP
+
+	| subtotal |
+
+	self assertValidCardName: creditCard.
+	self assertExpirationOf: creditCard on: checkoutDate.
+
+	subtotal := self totalCost: aCart .
+	aMP debit: subtotal from: creditCard.
+
+	^ subtotal .! !
+!Cashier methodsFor: 'checkout' stamp: 'js 11/5/2019 20:26:14'!
+assertExpirationOf: aCreditCard on: aCheckoutDate
+
+	(aCreditCard isExpiredOn: aCheckoutDate) ifTrue: [ self error: self class ErrorMsgExpiredCreditCard ].! !
+!Cashier class methodsFor: 'instance creation' stamp: 'js 11/5/2019 20:26:42'!
+errorMsgExpiredCreditCard
+
+	^ 'Expired credit card.'.! !
+!Cashier methodsFor: 'checkout' stamp: 'js 11/5/2019 20:26:51' prior: 50778883!
+assertExpirationOf: aCreditCard on: aCheckoutDate
+
+	(aCreditCard isExpiredOn: aCheckoutDate) ifTrue: [ self error: self class errorMsgExpiredCreditCard ].! !
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorWithCashier stamp: 'js 11/5/2019 20:26:56'!
+FAILURE!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:27:06' prior: 50778789!
+test05ExpiredCardShouldRaiseErrorWithCashier
+
+	| cashier aCart cardDate cardId cardName creditCard dateToTest |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cardId := '0123456789012345'.
+	cardName := 'Ada'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2022 monthNumber: 1 dayNumber: 1).
+
+	cashier := Cashier new.
+
+	self should: [cashier checkOut: aCart
+							onDate: dateToTest
+							withCreditCard: creditCard
+							withMP: self defaultSimulatedMP. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+				self assert: cashier errorMsgExpiredCreditCard equals: anError messageText . ].
+	! !
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorWithCashier stamp: 'js 11/5/2019 20:27:07'!
+ERROR!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:27:13' prior: 50778907!
+test05ExpiredCardShouldRaiseErrorWithCashier
+
+	| cashier aCart cardDate cardId cardName creditCard dateToTest |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cardId := '0123456789012345'.
+	cardName := 'Ada'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2022 monthNumber: 1 dayNumber: 1).
+
+	cashier := Cashier new.
+
+	self should: [cashier checkOut: aCart
+							onDate: dateToTest
+							withCreditCard: creditCard
+							withMP: self defaultSimulatedMP. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+				self assert: Cashier errorMsgExpiredCreditCard equals: anError messageText . ].
+	! !
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorWithCashier stamp: 'js 11/5/2019 20:27:14'!
+PASSED!
+
+!testRun: #CashierTest #test01EmptyCartSumsToZero stamp: 'js 11/5/2019 20:27:14'!
+PASSED!
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/5/2019 20:27:14'!
+PASSED!
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/5/2019 20:27:14'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 20:27:14'!
+PASSED!
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorWithCashier stamp: 'js 11/5/2019 20:27:14'!
+PASSED!
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 20:27:14'!
+PASSED!
+
+!methodRemoval: Cashier #checkOut:withCardNumber:withCardOwner:withCardExpirationDate: stamp: 'js 11/5/2019 20:27:40'!
+checkOut: aCart withCardNumber: aNumber withCardOwner: anOwnerName withCardExpirationDate: anExpirationDate
+
+	| subtotal |
+	self assertValidCardWithName: anOwnerName  withNumber: aNumber.
+
+	subtotal := self totalCost: aCart .
+	self debit: subtotal fromCardNumber: aNumber withCardOwner: anOwnerName withCardExpirationDate: anExpirationDate.
+
+	^ subtotal .!
+
+!methodRemoval: Cashier #checkOut:withCardNumber:withCardOwner:withCardExpirationDate:withMP: stamp: 'js 11/5/2019 20:27:48'!
+checkOut: aCart withCardNumber: aNumber withCardOwner: anOwnerName withCardExpirationDate: anExpirationDate withMP: aMP
+
+	| subtotal |
+	self assertValidCardWithName: anOwnerName  withNumber: aNumber.
+
+	subtotal := self totalCost: aCart .
+	self debit: subtotal fromCardNumber: aNumber withCardOwner: anOwnerName withCardExpirationDate: anExpirationDate.
+
+	^ subtotal .!
+!Cashier methodsFor: 'checkout' stamp: 'js 11/5/2019 20:28:07' prior: 50778872!
+checkOut: aCart onDate: checkoutDate withCreditCard: creditCard  withMP: aMP
+
+	| subtotal |
+
+	self assertValidCardName: creditCard.
+	self assertExpirationOf: creditCard on: checkoutDate.
+
+	subtotal := aCart totalCost .
+	aMP debit: subtotal from: creditCard.
+
+	^ subtotal .! !
+!Cashier class methodsFor: 'instance creation' stamp: 'js 11/5/2019 20:31:39'!
+onDate: aDate withPriceList: aPriceList withMP: MP withCart: aCart withCreditCard: aCreditCard
+
+	^ self new initializeOnDate: aDate withPriceList: aPriceList withMP: MP withCart: aCart withCreditCard: aCreditCard! !
+
+!classDefinition: #Cashier category: #TusLibros stamp: 'js 11/5/2019 20:32:34'!
+Object subclass: #Cashier
+	instanceVariableNames: 'currentDate'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Cashier category: #TusLibros stamp: 'js 11/5/2019 20:32:36'!
+Object subclass: #Cashier
+	instanceVariableNames: 'currentDate priceList'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Cashier category: #TusLibros stamp: 'js 11/5/2019 20:32:37'!
+Object subclass: #Cashier
+	instanceVariableNames: 'currentDate priceList merchantProcessor'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Cashier category: #TusLibros stamp: 'js 11/5/2019 20:32:38'!
+Object subclass: #Cashier
+	instanceVariableNames: 'currentDate priceList merchantProcessor cart'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+Object subclass: #Cashier
+	instanceVariableNames: 'currentDate priceList merchantProcessor cart creditCard'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cashier methodsFor: 'checkout' stamp: 'js 11/5/2019 20:33:30' prior: 50779021!
+checkOut: aCart onDate: checkoutDate withCreditCard: aCreditCard  withMP: aMP
+
+	| subtotal |
+
+	self assertValidCardName: aCreditCard.
+	self assertExpirationOf: aCreditCard on: checkoutDate.
+
+	subtotal := aCart totalCost .
+	aMP debit: subtotal from: aCreditCard.
+
+	^ subtotal .! !
+!Cashier methodsFor: 'checkout' stamp: 'js 11/5/2019 20:33:35' prior: 50778474!
+assertValidCardName: aCreditCard
+
+	(aCreditCard nameLength > 30) ifTrue: [self error: self invalidCardErrorMessage ].
+! !
+
+Object subclass: #Cashier
+	instanceVariableNames: 'currentDate priceList merchantProcessor cart creditCard'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Cashier category: #TusLibros stamp: 'js 11/5/2019 20:33:43'!
+Object subclass: #Cashier
+	instanceVariableNames: 'currentDate priceList merchantProcessor cart creditCard'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cashier methodsFor: 'initialization' stamp: 'js 11/5/2019 20:33:45'!
+initializeOnDate: aDate withPriceList: aPriceList withMP: MP withCart: aCart withCreditCard: aCreditCard
+
+	currentDate := aDate.
+	priceList := aPriceList.
+	merchantProcessor := MP.
+	cart := aCart.
+	creditCard := aCreditCard.! !
+
+!methodRemoval: Cashier #debit:fromCardNumber:withCardOwner:withCardExpirationDate: stamp: 'js 11/5/2019 20:33:58'!
+debit: subtotal fromCardNumber: aNumber withCardOwner: anOwnerName withCardExpirationDate: anExpirationDate.
+!
+!Cashier methodsFor: 'initialization' stamp: 'js 11/5/2019 20:34:32' prior: 50779109!
+initializeOnDate: aDate withPriceList: aPriceList withMP: MP withCart: aCart withCreditCard: aCreditCard
+
+	self assertValidCardName: aCreditCard.
+	self assertExpirationOf: aCreditCard on: aDate.
+
+	currentDate := aDate.
+	priceList := aPriceList.
+	merchantProcessor := MP.
+	cart := aCart.
+	creditCard := aCreditCard.! !
+!Cashier methodsFor: 'checkout' stamp: 'js 11/5/2019 20:35:06'!
+checkOut
+
+	| subtotal |
+
+	subtotal := cart totalCost .
+	merchantProcessor debit: subtotal from: creditCard.
+
+	^ subtotal .! !
+
+!testRun: #CashierTest #test01EmptyCartSumsToZero stamp: 'js 11/5/2019 20:35:37'!
+PASSED!
+
+!testRun: #CashierTest #test01EmptyCartSumsToZero stamp: 'js 11/5/2019 20:35:37'!
+PASSED!
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/5/2019 20:35:37'!
+PASSED!
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/5/2019 20:35:37'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 20:35:37'!
+PASSED!
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorWithCashier stamp: 'js 11/5/2019 20:35:37'!
+PASSED!
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 20:35:37'!
+PASSED!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:36:24' prior: 50777519!
+test01EmptyCartSumsToZero
+
+	| cashier aCart total |
+
+
+
+	aCart := self createCart .
+	cashier := Cashier new.
+	total := cashier totalCost: aCart.
+
+	self assert: 0 equals: total.
+	! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:37:29'!
+defaultCreditCard
+
+	| cardDate cardId cardName creditCard |
+	cardId := '0123456789012345'.
+	cardName := 'Ada'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	^ creditCard.
+
+! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:37:37' prior: 50779175!
+defaultCreditCard
+
+	| cardDate cardId cardName creditCard |
+
+	cardId := '0123456789012345'.
+	cardName := 'Ada'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	^ creditCard.
+
+! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:38:03' prior: 50778508!
+test04CheckOutWithLongCardNameRaisesError
+
+	"Consideramos que no tiene sentido enviarle al MerchantProcessor un nombre de mas de 30 caracteres cuando ya sabemos que es invalido"
+
+	| cashier aCart creditCard dateToTest |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	creditCard := self defaultCreditCard.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2019 monthNumber: 1 dayNumber: 1).
+
+	cashier := Cashier new.
+
+	self should: [cashier checkOut: aCart
+							onDate: dateToTest
+							withCreditCard: creditCard
+							withMP: self defaultSimulatedMP. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+							self assert: cashier invalidCardErrorMessage equals: anError messageText . ].
+	! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:38:57'!
+defaultDateToTest
+
+	^ (FixedGregorianDate yearNumber: 2019 monthNumber: 1 dayNumber: 1).
+! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:15:25' prior: 50779199!
+test04CheckOutWithLongCardNameRaisesError
+
+	"Consideramos que no tiene sentido enviarle al MerchantProcessor un nombre de mas de 30 caracteres cuando ya sabemos que es invalido"
+
+	| cashier aCart cardDate cardId cardName creditCard dateToTest |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cardId := '0123456789012345'.
+	cardName := 'aNameLongerThanThirtyCharacters'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2019 monthNumber: 1 dayNumber: 1).
+
+	cashier := Cashier new.
+
+	self should: [cashier checkOut: aCart
+							onDate: dateToTest
+							withCreditCard: creditCard
+							withMP: self defaultSimulatedMP. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+							self assert: cashier invalidCardErrorMessage equals: anError messageText . ].
+	! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:15:25' prior: 50779231!
+test04CheckOutWithLongCardNameRaisesError
+
+	"Consideramos que no tiene sentido enviarle al MerchantProcessor un nombre de mas de 30 caracteres cuando ya sabemos que es invalido"
+
+	| cashier aCart cardDate cardId cardName creditCard dateToTest |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cardId := '0123456789012345'.
+	cardName := 'aNameLongerThanThirtyCharacters'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2019 monthNumber: 1 dayNumber: 1).
+
+	cashier := Cashier new.
+
+	self should: [cashier checkOut: aCart
+							onDate: dateToTest
+							withCreditCard: creditCard
+							withMP: self defaultSimulatedMP. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+							self assert: cashier invalidCardErrorMessage equals: anError messageText . ].
+	! !
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 20:40:24'!
+PASSED!
+
+!testRun: #CashierTest #test01EmptyCartSumsToZero stamp: 'js 11/5/2019 20:40:24'!
+PASSED!
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/5/2019 20:40:24'!
+PASSED!
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/5/2019 20:40:24'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 20:40:24'!
+PASSED!
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorWithCashier stamp: 'js 11/5/2019 20:40:24'!
+PASSED!
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 20:40:24'!
+PASSED!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:40:59' prior: 50778663!
+test06CheckoutWithMPErrorCanBeHandledCorrectly
+
+	|cashier aCart aMerchantProcessorSimulator creditCard dateToTest |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	aMerchantProcessorSimulator := MerchantProcessorSimulator returning:
+		[ ^ MerchantProcessorSimulator error: MerchantProcessorSimulator financialErrorMsg ].
+
+	cashier := Cashier new.
+
+	creditCard := self defaultCreditCard.
+	dateToTest := self defaultDateToTest.
+
+	self should: [ cashier checkOut: aCart
+							onDate: dateToTest
+							withCreditCard: creditCard
+							withMP: aMerchantProcessorSimulator. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: MerchantProcessorSimulator financialErrorMsg.
+		 ]! !
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 20:41:07'!
+PASSED!
+
+!testRun: #CashierTest #test01EmptyCartSumsToZero stamp: 'js 11/5/2019 20:41:07'!
+PASSED!
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/5/2019 20:41:07'!
+PASSED!
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/5/2019 20:41:07'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 20:41:07'!
+PASSED!
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorWithCashier stamp: 'js 11/5/2019 20:41:07'!
+PASSED!
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 20:41:07'!
+PASSED!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:41:19' prior: 50779167!
+test01EmptyCartSumsToZero
+
+	| cashier aCart total |
+
+	aCart := self createCart .
+	cashier := Cashier new.
+	total := cashier totalCost: aCart.
+
+	self assert: 0 equals: total.
+	! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:43:21' prior: 50779370!
+test01EmptyCartSumsToZero
+
+	| cashier aCart total |
+
+	aCart := self createCart.
+
+	cashier := Cashier initializeOnDate: self defaultDateToTest
+						withPriceList: self defaultPriceList
+						withMP: self defaultSimulatedMP
+						withCart: aCart
+						withCreditCard: self defaultCreditCard
+.
+
+	total := cashier totalCost: aCart.
+
+	self assert: 0 equals: total.
+	! !
+!Cashier methodsFor: 'initialization' stamp: 'js 11/5/2019 20:43:37'!
+initializeOnDate: aDate withPriceList: aPriceList withMP: MP withCreditCard: aCreditCard withCart: aCart
+
+	self assertValidCardName: aCreditCard.
+	self assertExpirationOf: aCreditCard on: aDate.
+
+	currentDate := aDate.
+	priceList := aPriceList.
+	merchantProcessor := MP.
+	cart := aCart.
+	creditCard := aCreditCard.! !
+
+!methodRemoval: Cashier #initializeOnDate:withPriceList:withMP:withCreditCard:withCart: stamp: 'js 11/5/2019 20:43:50'!
+initializeOnDate: aDate withPriceList: aPriceList withMP: MP withCreditCard: aCreditCard withCart: aCart
+
+	self assertValidCardName: aCreditCard.
+	self assertExpirationOf: aCreditCard on: aDate.
+
+	currentDate := aDate.
+	priceList := aPriceList.
+	merchantProcessor := MP.
+	cart := aCart.
+	creditCard := aCreditCard.!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:44:06' prior: 50779379!
+test01EmptyCartSumsToZero
+
+	| cashier aCart total |
+
+	aCart := self createCart.
+
+	cashier := Cashier initializeOnDate: self defaultDateToTest
+						withPriceList: self defaultPriceList
+						withMP: self defaultSimulatedMP
+						withCart: aCart
+						withCreditCard: self defaultCreditCard .
+
+	total := cashier totalCost: aCart.
+
+	self assert: 0 equals: total.
+	! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:44:21' prior: 50779420!
+test01EmptyCartSumsToZero
+
+	| cashier aCart total |
+
+	aCart := self createCart.
+
+	cashier := Cashier initializeOnDate: self defaultDateToTest
+						withPriceList: self defaultPriceList
+						withMP: self defaultSimulatedMP
+						withCart: aCart
+						withCreditCard: self defaultCreditCard .
+
+	total := cashier checkOut.
+
+	self assert: 0 equals: total.
+	! !
+
+!testRun: #CashierTest #test01EmptyCartSumsToZero stamp: 'js 11/5/2019 20:44:22'!
+ERROR!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:44:30' prior: 50779435!
+test01EmptyCartSumsToZero
+
+	| cashier aCart total |
+
+	aCart := self createCart.
+
+	cashier := Cashier onDate: self defaultDateToTest
+						withPriceList: self defaultPriceList
+						withMP: self defaultSimulatedMP
+						withCart: aCart
+						withCreditCard: self defaultCreditCard .
+
+	total := cashier checkOut.
+
+	self assert: 0 equals: total.
+	! !
+
+!testRun: #CashierTest #test01EmptyCartSumsToZero stamp: 'js 11/5/2019 20:44:32'!
+PASSED!
+
+!testRun: #CashierTest #test01EmptyCartSumsToZero stamp: 'js 11/5/2019 20:44:32'!
+PASSED!
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/5/2019 20:44:32'!
+PASSED!
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/5/2019 20:44:32'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 20:44:32'!
+PASSED!
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorWithCashier stamp: 'js 11/5/2019 20:44:32'!
+PASSED!
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 20:44:32'!
+PASSED!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:45:09' prior: 50777527!
+test02CartWithOneItemSumsCorrectly
+
+	|cashier aCart total|
+
+	aCart := self createCart.
+	aCart add: 1 of: self itemSellByTheStore .
+
+	cashier := Cashier onDate: self defaultDateToTest
+						withPriceList: self defaultPriceList
+						withMP: self defaultSimulatedMP
+						withCart: aCart
+						withCreditCard: self defaultCreditCard .
+
+	total := cashier checkOut.
+
+	self assert: 50 equals: total. ! !
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/5/2019 20:45:10'!
+PASSED!
+
+!testRun: #CashierTest #test01EmptyCartSumsToZero stamp: 'js 11/5/2019 20:45:10'!
+PASSED!
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/5/2019 20:45:10'!
+PASSED!
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/5/2019 20:45:10'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 20:45:10'!
+PASSED!
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorWithCashier stamp: 'js 11/5/2019 20:45:10'!
+PASSED!
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 20:45:10'!
+PASSED!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:45:32' prior: 50777537!
+test03CartWithMoreThanOneItemSumsCorrectly
+
+	|cashier aCart total|
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cashier := Cashier onDate: self defaultDateToTest
+						withPriceList: self defaultPriceList
+						withMP: self defaultSimulatedMP
+						withCart: aCart
+						withCreditCard: self defaultCreditCard.
+
+	total := cashier checkOut .
+
+	self assert: 100 equals: total. ! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:45:33' prior: 50779527!
+test03CartWithMoreThanOneItemSumsCorrectly
+
+	|cashier aCart total|
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cashier := Cashier onDate: self defaultDateToTest
+						withPriceList: self defaultPriceList
+						withMP: self defaultSimulatedMP
+						withCart: aCart
+						withCreditCard: self defaultCreditCard.
+
+	total := cashier checkOut.
+
+	self assert: 100 equals: total. ! !
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/5/2019 20:45:33'!
+PASSED!
+
+!testRun: #CashierTest #test01EmptyCartSumsToZero stamp: 'js 11/5/2019 20:45:33'!
+PASSED!
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/5/2019 20:45:33'!
+PASSED!
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/5/2019 20:45:33'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 20:45:33'!
+PASSED!
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorWithCashier stamp: 'js 11/5/2019 20:45:33'!
+PASSED!
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 20:45:33'!
+PASSED!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:47:16' prior: 50779264!
+test04CheckOutWithLongCardNameRaisesError
+
+	"Consideramos que no tiene sentido enviarle al MerchantProcessor un nombre de mas de 30 caracteres cuando ya sabemos que es invalido"
+
+	| aCart cardDate cardId cardName creditCard dateToTest |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cardId := '0123456789012345'.
+	cardName := 'aNameLongerThanThirtyCharacters'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2019 monthNumber: 1 dayNumber: 1).
+
+	self should: [ Cashier onDate: dateToTest
+					withPriceList: self defaultPriceList
+					withMP: self defaultSimulatedMP
+					withCart: aCart
+					withCreditCard: creditCard. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+				self assert: Cashier invalidCardErrorMessage equals: anError messageText . ].
+	! !
+!Cashier class methodsFor: 'instance creation' stamp: 'js 11/5/2019 20:47:31'!
+invalidCardErrorMessage
+
+	^ 'The card is invalid.'! !
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 20:47:39'!
+PASSED!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:56:55' prior: 50778939!
+test05ExpiredCardShouldRaiseErrorWithCashier
+
+	| aCart cardDate cardId cardName creditCard dateToTest |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cardId := '0123456789012345'.
+	cardName := 'Ada'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2022 monthNumber: 1 dayNumber: 1).
+
+	self should: [ Cashier onDate: dateToTest
+					withPriceList: self defaultPriceList
+					withMP: self defaultSimulatedMP
+					withCart: aCart
+					withCreditCard: creditCard. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+				self assert: Cashier errorMsgExpiredCreditCard equals: anError messageText . ].
+	! !
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorWithCashier stamp: 'js 11/5/2019 20:56:58'!
+PASSED!
+
+!testRun: #CashierTest #test01EmptyCartSumsToZero stamp: 'js 11/5/2019 20:56:58'!
+PASSED!
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/5/2019 20:56:58'!
+PASSED!
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/5/2019 20:56:58'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 20:56:58'!
+PASSED!
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorWithCashier stamp: 'js 11/5/2019 20:56:58'!
+PASSED!
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 20:56:58'!
+PASSED!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:58:50' prior: 50779320!
+test06CheckoutWithMPErrorCanBeHandledCorrectly
+
+	|cashier aCart aMPSimulator creditCard dateToTest |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	aMPSimulator := MerchantProcessorSimulator returning:
+		[ ^ MerchantProcessorSimulator error: MerchantProcessorSimulator financialErrorMsg ].
+
+	cashier := Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withMP: aMPSimulator
+					withCart: aCart
+					withCreditCard: self defaultCreditCard .
+
+	creditCard := self defaultCreditCard.
+	dateToTest := self defaultDateToTest.
+
+	self should: [ cashier checkOut: aCart
+							onDate: dateToTest
+							withCreditCard: creditCard
+							withMP: aMPSimulator. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: MerchantProcessorSimulator financialErrorMsg.
+		 ]! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 20:59:04' prior: 50779675!
+test06CheckoutWithMPErrorCanBeHandledCorrectly
+
+	|cashier aCart aMPSimulator |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	aMPSimulator := MerchantProcessorSimulator returning:
+		[ ^ MerchantProcessorSimulator error: MerchantProcessorSimulator financialErrorMsg ].
+
+	cashier := Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withMP: aMPSimulator
+					withCart: aCart
+					withCreditCard: self defaultCreditCard .
+
+	self should: [ cashier checkOut ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: MerchantProcessorSimulator financialErrorMsg.
+		 ]! !
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 20:59:08'!
+PASSED!
+
+!testRun: #CashierTest #test01EmptyCartSumsToZero stamp: 'js 11/5/2019 20:59:08'!
+PASSED!
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/5/2019 20:59:08'!
+PASSED!
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/5/2019 20:59:08'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 20:59:08'!
+PASSED!
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorWithCashier stamp: 'js 11/5/2019 20:59:08'!
+PASSED!
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 20:59:08'!
+PASSED!
+
+!methodRemoval: Cashier #checkOut:onDate:withCreditCard:withMP: stamp: 'js 11/5/2019 21:16:19'!
+checkOut: aCart onDate: checkoutDate withCreditCard: aCreditCard  withMP: aMP
+
+	| subtotal |
+
+	self assertValidCardName: aCreditCard.
+	self assertExpirationOf: aCreditCard on: checkoutDate.
+
+	subtotal := aCart totalCost .
+	aMP debit: subtotal from: aCreditCard.
+
+	^ subtotal .!
+
+!methodRemoval: Cashier class #newWith: stamp: 'js 11/5/2019 21:16:48'!
+newWith: aPriceList
+
+	^ self new initializeWithPriceList: aPriceList .!
+
+!methodRemoval: Cashier #initializeWithPriceList: stamp: 'js 11/5/2019 21:16:59'!
+initializeWithPriceList: aPriceList
+
+	priceList := aPriceList.
+
+
+	!
+
+!methodRemoval: Cashier #totalCost: stamp: 'js 11/5/2019 21:17:10'!
+totalCost: aCart
+
+	^ aCart totalCost.!
+!Cashier class methodsFor: 'instance creation' stamp: 'js 11/5/2019 21:22:56'!
+errorMessageEmptyCartCheckout
+
+	^ 'Cannot checkout an empty cart'.! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 21:23:01' prior: 50779452!
+test01EmptyCartSumsToZero
+
+	| aCart |
+
+	aCart := self createCart.
+
+	self should: [ Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withMP: self defaultSimulatedMP
+					withCart: aCart
+					withCreditCard: self defaultCreditCard . ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+				self assert: Cashier errorMessageEmptyCartCheckout equals: anError messageText . ].
+
+	! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 21:23:12' prior: 50779783!
+test01EmptyCartSumsToZero
+
+	| anEmptyCart |
+
+	anEmptyCart := self createCart.
+
+	self should: [ Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withMP: self defaultSimulatedMP
+					withCart: anEmptyCart
+					withCreditCard: self defaultCreditCard . ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+				self assert: Cashier errorMessageEmptyCartCheckout equals: anError messageText . ].
+
+	! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 21:23:19' prior: 50779800!
+test01EmptyCartSumsToZero
+
+	| anEmptyCart |
+
+	anEmptyCart := self createCart.
+
+	self should: [ Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withMP: self defaultSimulatedMP
+					withCart: anEmptyCart
+					withCreditCard: self defaultCreditCard . ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [ :anError |
+				self assert: Cashier errorMessageEmptyCartCheckout equals: anError messageText . ].
+
+	! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 21:23:24' prior: 50779817!
+test01EmptyCartSumsToZero
+
+	| anEmptyCart |
+
+	anEmptyCart := self createCart.
+
+	self should: [ Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withMP: self defaultSimulatedMP
+					withCart: anEmptyCart
+					withCreditCard: self defaultCreditCard . ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [ :anError |
+				self assert: Cashier errorMessageEmptyCartCheckout equals: anError messageText . ].
+
+	! !
+
+!testRun: #CashierTest #test01EmptyCartSumsToZero stamp: 'js 11/5/2019 21:23:25'!
+FAILURE!
+
+!testRun: #CashierTest #test01EmptyCartSumsToZero stamp: 'js 11/5/2019 21:23:29'!
+FAILURE!
+
+!testRun: #CashierTest #test01EmptyCartSumsToZero stamp: 'js 11/5/2019 21:23:29'!
+FAILURE!
+
+!testRun: #CashierTest #test01EmptyCartSumsToZero stamp: 'js 11/5/2019 21:23:46'!
+FAILURE!
+
+!testRun: #CashierTest #test01EmptyCartSumsToZero stamp: 'js 11/5/2019 21:23:46'!
+FAILURE!
+!Cashier methodsFor: 'initialization' stamp: 'js 11/5/2019 21:24:23' prior: 50779126!
+initializeOnDate: aDate withPriceList: aPriceList withMP: MP withCart: aCart withCreditCard: aCreditCard
+
+	self assertValidCart: aCart.
+	self assertValidCardName: aCreditCard.
+	self assertExpirationOf: aCreditCard on: aDate.
+
+	currentDate := aDate.
+	priceList := aPriceList.
+	merchantProcessor := MP.
+	cart := aCart.
+	creditCard := aCreditCard.! !
+!Cashier methodsFor: 'initialization' stamp: 'js 11/5/2019 21:24:56'!
+assertValidCart: aCart.
+
+	aCart isEmpty ifTrue: [self error: self class errorMessageEmptyCartCheckout ]! !
+
+!testRun: #CashierTest #test01EmptyCartSumsToZero stamp: 'js 11/5/2019 21:25:00'!
+PASSED!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 21:25:25'!
+test01EmptyCartRaisesErrorOnCheckout
+
+	| anEmptyCart |
+
+	anEmptyCart := self createCart.
+
+	self should: [ Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withMP: self defaultSimulatedMP
+					withCart: anEmptyCart
+					withCreditCard: self defaultCreditCard . ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [ :anError |
+				self assert: Cashier errorMessageEmptyCartCheckout equals: anError messageText . ].
+
+	! !
+
+!methodRemoval: CashierTest #test01EmptyCartSumsToZero stamp: 'js 11/5/2019 21:25:25'!
+test01EmptyCartSumsToZero
+
+	| anEmptyCart |
+
+	anEmptyCart := self createCart.
+
+	self should: [ Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withMP: self defaultSimulatedMP
+					withCart: anEmptyCart
+					withCreditCard: self defaultCreditCard . ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [ :anError |
+				self assert: Cashier errorMessageEmptyCartCheckout equals: anError messageText . ].
+
+	!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 21:25:40'!
+test01EmptyCarShouldtRaiseErrorOnCheckout
+
+	| anEmptyCart |
+
+	anEmptyCart := self createCart.
+
+	self should: [ Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withMP: self defaultSimulatedMP
+					withCart: anEmptyCart
+					withCreditCard: self defaultCreditCard . ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [ :anError |
+				self assert: Cashier errorMessageEmptyCartCheckout equals: anError messageText . ].
+
+	! !
+
+!methodRemoval: CashierTest #test01EmptyCartRaisesErrorOnCheckout stamp: 'js 11/5/2019 21:25:40'!
+test01EmptyCartRaisesErrorOnCheckout
+
+	| anEmptyCart |
+
+	anEmptyCart := self createCart.
+
+	self should: [ Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withMP: self defaultSimulatedMP
+					withCart: anEmptyCart
+					withCreditCard: self defaultCreditCard . ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [ :anError |
+				self assert: Cashier errorMessageEmptyCartCheckout equals: anError messageText . ].
+
+	!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:20:08' prior: 50779923!
+test01EmptyCarShouldtRaiseErrorOnCheckout
+
+	| anEmptyCart |
+
+	anEmptyCart := self createCart.
+
+	self should: [ Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withMP: self defaultSimulatedMP
+					withCart: anEmptyCart
+					withCreditCard: self defaultCreditCard . ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [ :anError |
+				self assert: Cashier errorMessageEmptyCartCheckout equals: anError messageText .
+
+			].
+
+	! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:20:52'!
+defaultSalesBook
+
+	^ OrderedCollection new.
+
+! !
+!Cashier class methodsFor: 'instance creation' stamp: 'js 11/5/2019 22:23:08'!
+onDate: aDate withPriceList: aPriceList withSalesBook: aSalesBook withMP: MP withCart: aCart withCreditCard: aCreditCard
+
+	^ self new initializeOnDate: aDate withPriceList: aPriceList withMP: MP withCart: aCart withCreditCard: aCreditCard! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'js 11/5/2019 22:23:08' prior: 50779959!
+test01EmptyCarShouldtRaiseErrorOnCheckout
+
+	| anEmptyCart |
+
+	anEmptyCart := self createCart.
+
+	self should: [ Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: self defaultSalesBook withMP: self defaultSimulatedMP
+					withCart: anEmptyCart
+					withCreditCard: self defaultCreditCard . ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [ :anError |
+				self assert: Cashier errorMessageEmptyCartCheckout equals: anError messageText .
+
+			].
+
+	! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'js 11/5/2019 22:23:08' prior: 50779543!
+test03CartWithMoreThanOneItemSumsCorrectly
+
+	|cashier aCart total|
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cashier := Cashier onDate: self defaultDateToTest
+						withPriceList: self defaultPriceList
+						withSalesBook: self defaultSalesBook withMP: self defaultSimulatedMP
+						withCart: aCart
+						withCreditCard: self defaultCreditCard.
+
+	total := cashier checkOut.
+
+	self assert: 100 equals: total. ! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'js 11/5/2019 22:23:08' prior: 50779582!
+test04CheckOutWithLongCardNameRaisesError
+
+	"Consideramos que no tiene sentido enviarle al MerchantProcessor un nombre de mas de 30 caracteres cuando ya sabemos que es invalido"
+
+	| aCart cardDate cardId cardName creditCard dateToTest |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cardId := '0123456789012345'.
+	cardName := 'aNameLongerThanThirtyCharacters'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2019 monthNumber: 1 dayNumber: 1).
+
+	self should: [ Cashier onDate: dateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: self defaultSalesBook withMP: self defaultSimulatedMP
+					withCart: aCart
+					withCreditCard: creditCard. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+				self assert: Cashier invalidCardErrorMessage equals: anError messageText . ].
+	! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'js 11/5/2019 22:23:08' prior: 50779706!
+test06CheckoutWithMPErrorCanBeHandledCorrectly
+
+	|cashier aCart aMPSimulator |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	aMPSimulator := MerchantProcessorSimulator returning:
+		[ ^ MerchantProcessorSimulator error: MerchantProcessorSimulator financialErrorMsg ].
+
+	cashier := Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: self defaultSalesBook withMP: aMPSimulator
+					withCart: aCart
+					withCreditCard: self defaultCreditCard .
+
+	self should: [ cashier checkOut ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: MerchantProcessorSimulator financialErrorMsg.
+		 ]! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'js 11/5/2019 22:23:08' prior: 50779489!
+test02CartWithOneItemSumsCorrectly
+
+	|cashier aCart total|
+
+	aCart := self createCart.
+	aCart add: 1 of: self itemSellByTheStore .
+
+	cashier := Cashier onDate: self defaultDateToTest
+						withPriceList: self defaultPriceList
+						withSalesBook: self defaultSalesBook withMP: self defaultSimulatedMP
+						withCart: aCart
+						withCreditCard: self defaultCreditCard .
+
+	total := cashier checkOut.
+
+	self assert: 50 equals: total. ! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'js 11/5/2019 22:23:08' prior: 50779623!
+test05ExpiredCardShouldRaiseErrorWithCashier
+
+	| aCart cardDate cardId cardName creditCard dateToTest |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cardId := '0123456789012345'.
+	cardName := 'Ada'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2022 monthNumber: 1 dayNumber: 1).
+
+	self should: [ Cashier onDate: dateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: self defaultSalesBook withMP: self defaultSimulatedMP
+					withCart: aCart
+					withCreditCard: creditCard. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+				self assert: Cashier errorMsgExpiredCreditCard equals: anError messageText . ].
+	! !
+
+!methodRemoval: Cashier class #onDate:withPriceList:withMP:withCart:withCreditCard: stamp: 'js 11/5/2019 22:23:08'!
+onDate: aDate withPriceList: aPriceList withMP: MP withCart: aCart withCreditCard: aCreditCard
+
+	^ self new initializeOnDate: aDate withPriceList: aPriceList withMP: MP withCart: aCart withCreditCard: aCreditCard!
+!Cashier class methodsFor: 'instance creation' stamp: 'js 11/5/2019 22:23:19' prior: 50779981!
+onDate: aDate withPriceList: aPriceList withSalesBook: aSalesBook withMP: MP withCart: aCart withCreditCard: aCreditCard
+
+	^ self new initializeOnDate: aDate withPriceList: aPriceList withSalesBook: aSalesBook withMP: MP withCart: aCart withCreditCard: aCreditCard! !
+!Cashier methodsFor: 'initialization' stamp: 'js 11/5/2019 22:23:30'!
+initializeOnDate: aDate withPriceList: aPriceList withSalesBook: aSalesBook withMP: MP withCart: aCart withCreditCard: aCreditCard
+
+	self assertValidCart: aCart.
+	self assertValidCardName: aCreditCard.
+	self assertExpirationOf: aCreditCard on: aDate.
+
+	currentDate := aDate.
+	priceList := aPriceList.
+	merchantProcessor := MP.
+	cart := aCart.
+	creditCard := aCreditCard.! !
+
+!classDefinition: #Cashier category: #TusLibros stamp: 'js 11/5/2019 22:23:45'!
+Object subclass: #Cashier
+	instanceVariableNames: 'currentDate priceList merchantProcessor cart creditCard salesBook'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Cashier methodsFor: 'initialization' stamp: 'js 11/5/2019 22:23:44' prior: 50780159!
+initializeOnDate: aDate withPriceList: aPriceList withSalesBook: aSalesBook withMP: MP withCart: aCart withCreditCard: aCreditCard
+
+	self assertValidCart: aCart.
+	self assertValidCardName: aCreditCard.
+	self assertExpirationOf: aCreditCard on: aDate.
+
+	salesBook := aSalesBook.
+	currentDate := aDate.
+	priceList := aPriceList.
+	merchantProcessor := MP.
+	cart := aCart.
+	creditCard := aCreditCard.! !
+
+!methodRemoval: Cashier #initializeOnDate:withPriceList:withMP:withCart:withCreditCard: stamp: 'js 11/5/2019 22:23:47'!
+initializeOnDate: aDate withPriceList: aPriceList withMP: MP withCart: aCart withCreditCard: aCreditCard
+
+	self assertValidCart: aCart.
+	self assertValidCardName: aCreditCard.
+	self assertExpirationOf: aCreditCard on: aDate.
+
+	currentDate := aDate.
+	priceList := aPriceList.
+	merchantProcessor := MP.
+	cart := aCart.
+	creditCard := aCreditCard.!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:24:25' prior: 50779992!
+test01EmptyCarShouldtRaiseErrorOnCheckout
+
+	| anEmptyCart aSalesBook |
+
+	anEmptyCart := self createCart.
+	aSalesBook := OrderedCollection new.
+
+	self should: [ Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: self defaultSalesBook
+					withMP: self defaultSimulatedMP
+					withCart: anEmptyCart
+					withCreditCard: self defaultCreditCard . ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [ :anError |
+				self assert: Cashier errorMessageEmptyCartCheckout equals: anError messageText .
+
+			].
+
+	! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:24:44' prior: 50780212!
+test01EmptyCarShouldtRaiseErrorOnCheckout
+
+	| anEmptyCart aSalesBook |
+
+	anEmptyCart := self createCart.
+	aSalesBook := OrderedCollection new.
+
+	self should: [ Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: aSalesBook
+					withMP: self defaultSimulatedMP
+					withCart: anEmptyCart
+					withCreditCard: self defaultCreditCard . ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [ :anError |
+				self assert: Cashier errorMessageEmptyCartCheckout equals: anError messageText .
+				self assert: aSalesBook isEmpty.
+			].
+
+	! !
+
+!testRun: #CashierTest #test01EmptyCarShouldtRaiseErrorOnCheckout stamp: 'js 11/5/2019 22:24:45'!
+PASSED!
+
+!testRun: #CashierTest #test01EmptyCarShouldtRaiseErrorOnCheckout stamp: 'js 11/5/2019 22:24:45'!
+PASSED!
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/5/2019 22:24:45'!
+PASSED!
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/5/2019 22:24:45'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 22:24:45'!
+PASSED!
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorWithCashier stamp: 'js 11/5/2019 22:24:45'!
+PASSED!
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 22:24:45'!
+PASSED!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:26:08' prior: 50780065!
+test06CheckoutWithMPErrorCanBeHandledCorrectly
+
+	|cashier aCart aMPSimulator salesBook |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	aMPSimulator := MerchantProcessorSimulator returning:
+		[ ^ MerchantProcessorSimulator error: MerchantProcessorSimulator financialErrorMsg ].
+
+	salesBook := OrderedCollection new.
+
+	cashier := Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: salesBook
+					withMP: aMPSimulator
+					withCart: aCart
+					withCreditCard: self defaultCreditCard .
+
+	self should: [ cashier checkOut ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: MerchantProcessorSimulator financialErrorMsg.
+			self assert: salesBook isEmpty.
+		 ]! !
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 22:26:12'!
+PASSED!
+
+!testRun: #CashierTest #test01EmptyCarShouldtRaiseErrorOnCheckout stamp: 'js 11/5/2019 22:26:12'!
+PASSED!
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/5/2019 22:26:12'!
+PASSED!
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/5/2019 22:26:12'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 22:26:12'!
+PASSED!
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorWithCashier stamp: 'js 11/5/2019 22:26:12'!
+PASSED!
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 22:26:12'!
+PASSED!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:26:18' prior: 50780091!
+test02CartWithOneItemSumsCorrectly
+
+	|cashier aCart total|
+
+	aCart := self createCart.
+	aCart add: 1 of: self itemSellByTheStore .
+
+	cashier := Cashier onDate: self defaultDateToTest
+						withPriceList: self defaultPriceList
+						withSalesBook: self defaultSalesBook
+						withMP: self defaultSimulatedMP
+						withCart: aCart
+						withCreditCard: self defaultCreditCard .
+
+	total := cashier checkOut.
+
+	self assert: 50 equals: total. ! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:28:20'!
+test07SalesBookIsFilledCorrectlyWhenCheckingOut
+
+	|cashier aCart aMPSimulator salesBook |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	salesBook := OrderedCollection new.
+
+	cashier := Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: salesBook
+					withMP: self defaultSimulatedMP
+					withCart: aCart
+					withCreditCard: self defaultCreditCard .
+
+	self assert: salesBook size equals: 1.
+	self assert: (salesBook contains: aCart).		 ! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:28:35' prior: 50780347!
+test07SalesBookIsFilledCorrectlyWhenCheckingOut
+
+	|cashier aCart salesBook |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	salesBook := OrderedCollection new.
+
+	cashier := Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: salesBook
+					withMP: self defaultSimulatedMP
+					withCart: aCart
+					withCreditCard: self defaultCreditCard .
+
+	cashier checkOut.
+
+	self assert: salesBook size equals: 1.
+	self assert: (salesBook contains: aCart).		 ! !
+
+!testRun: #CashierTest #test07SalesBookIsFilledCorrectlyWhenCheckingOut stamp: 'js 11/5/2019 22:28:45'!
+FAILURE!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:28:58' prior: 50780366!
+test07SalesBookIsFilledCorrectlyWhenCheckingOut
+
+	|cashier aCart salesBook |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	salesBook := OrderedCollection new.
+
+	cashier := Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: salesBook
+					withMP: self defaultSimulatedMP
+					withCart: aCart
+					withCreditCard: self defaultCreditCard .
+
+	cashier checkOut.
+
+	self assert: 1 equals: salesBook size.
+	self assert: (salesBook contains: aCart).		 ! !
+
+!testRun: #CashierTest #test07SalesBookIsFilledCorrectlyWhenCheckingOut stamp: 'js 11/5/2019 22:29:03'!
+FAILURE!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:30:09' prior: 50780389!
+test07SalesBookIsFilledCorrectlyWhenCheckingOut
+
+	|cashier aCart salesBook |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	salesBook := OrderedCollection new.
+
+	cashier := Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: salesBook
+					withMP: self defaultSimulatedMP
+					withCart: aCart
+					withCreditCard: self defaultCreditCard .
+
+	cashier checkOut.
+
+	self assert: 1 equals: salesBook size.
+	self assert: (salesBook includes: aCart).		 ! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:30:13' prior: 50780412!
+test07SalesBookIsFilledCorrectlyWhenCheckingOut
+
+	|cashier aCart salesBook |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	salesBook := OrderedCollection new.
+
+	cashier := Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: salesBook
+					withMP: self defaultSimulatedMP
+					withCart: aCart
+					withCreditCard: self defaultCreditCard .
+
+	cashier checkOut.
+
+	self assert: 1 equals: salesBook size.
+	self assert: (salesBook includes: aCart).
+		 ! !
+
+!testRun: #CashierTest #test07SalesBookIsFilledCorrectlyWhenCheckingOut stamp: 'js 11/5/2019 22:30:15'!
+FAILURE!
+!Cashier methodsFor: 'checkout' stamp: 'js 11/5/2019 22:31:38' prior: 50779138!
+checkOut
+
+	| subtotal |
+
+	subtotal := cart totalCost .
+	merchantProcessor debit: subtotal from: creditCard.
+
+	salesBook add: cart copy.
+
+	^ subtotal .! !
+
+!testRun: #CashierTest #test07SalesBookIsFilledCorrectlyWhenCheckingOut stamp: 'js 11/5/2019 22:31:44'!
+FAILURE!
+!Cashier methodsFor: 'checkout' stamp: 'js 11/5/2019 22:31:59' prior: 50780455!
+checkOut
+
+	| subtotal |
+
+	subtotal := cart totalCost .
+	merchantProcessor debit: subtotal from: creditCard.
+
+	salesBook add: cart.
+
+	^ subtotal .! !
+
+!testRun: #CashierTest #test07SalesBookIsFilledCorrectlyWhenCheckingOut stamp: 'js 11/5/2019 22:32:03'!
+PASSED!
+
+!testRun: #CashierTest #test01EmptyCarShouldtRaiseErrorOnCheckout stamp: 'js 11/5/2019 22:32:03'!
+PASSED!
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/5/2019 22:32:03'!
+PASSED!
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/5/2019 22:32:03'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 22:32:03'!
+PASSED!
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorWithCashier stamp: 'js 11/5/2019 22:32:03'!
+PASSED!
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 22:32:03'!
+PASSED!
+
+!testRun: #CashierTest #test07SalesBookIsFilledCorrectlyWhenCheckingOut stamp: 'js 11/5/2019 22:32:03'!
+PASSED!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:33:08' prior: 50780030!
+test04CheckOutWithLongCardNameRaisesError
+
+	"Consideramos que no tiene sentido enviarle al MerchantProcessor un nombre de mas de 30 caracteres cuando ya sabemos que es invalido"
+
+	| aCart cardDate cardId cardName creditCard dateToTest salesBook |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cardId := '0123456789012345'.
+	cardName := 'aNameLongerThanThirtyCharacters'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2019 monthNumber: 1 dayNumber: 1).
+
+	salesBook := OrderedCollection new.
+
+	self should: [ Cashier onDate: dateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: salesBook
+					withMP: self defaultSimulatedMP
+					withCart: aCart
+					withCreditCard: creditCard. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+				self assert: Cashier invalidCardErrorMessage equals: anError messageText .
+				self assert: salesBook isEmpty.
+		].
+	! !
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 22:33:13'!
+PASSED!
+
+!testRun: #CashierTest #test01EmptyCarShouldtRaiseErrorOnCheckout stamp: 'js 11/5/2019 22:33:13'!
+PASSED!
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/5/2019 22:33:13'!
+PASSED!
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/5/2019 22:33:13'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 22:33:13'!
+PASSED!
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorWithCashier stamp: 'js 11/5/2019 22:33:13'!
+PASSED!
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 22:33:13'!
+PASSED!
+
+!testRun: #CashierTest #test07SalesBookIsFilledCorrectlyWhenCheckingOut stamp: 'js 11/5/2019 22:33:13'!
+PASSED!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:33:59' prior: 50780108!
+test05ExpiredCardShouldRaiseErrorWithCashier
+
+	| aCart cardDate cardId cardName creditCard dateToTest salesBook |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cardId := '0123456789012345'.
+	cardName := 'Ada'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2022 monthNumber: 1 dayNumber: 1).
+
+	salesBook := OrderedCollection new.
+
+	self should: [ Cashier onDate: dateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: salesBook
+					withMP: self defaultSimulatedMP
+					withCart: aCart
+					withCreditCard: creditCard. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+				self assert: Cashier errorMsgExpiredCreditCard equals: anError messageText.
+				self assert: salesBook isEmpty.
+			 ].
+	! !
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorWithCashier stamp: 'js 11/5/2019 22:34:00'!
+PASSED!
+
+!testRun: #CashierTest #test01EmptyCarShouldtRaiseErrorOnCheckout stamp: 'js 11/5/2019 22:34:00'!
+PASSED!
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/5/2019 22:34:00'!
+PASSED!
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/5/2019 22:34:00'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 22:34:00'!
+PASSED!
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorWithCashier stamp: 'js 11/5/2019 22:34:00'!
+PASSED!
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 22:34:00'!
+PASSED!
+
+!testRun: #CashierTest #test07SalesBookIsFilledCorrectlyWhenCheckingOut stamp: 'js 11/5/2019 22:34:00'!
+PASSED!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:35:07' prior: 50780501!
+test04CheckOutWithLongCardNameRaisesError
+
+	"Consideramos que no tiene sentido enviarle al MerchantProcessor un nombre de mas de 30 caracteres cuando ya sabemos que es invalido"
+
+	| aCart cardDate cardId cardName creditCard dateToTest salesBook |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cardId := '0123456789012345'.
+	cardName := 'aNameLongerThanThirtyCharacters'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2019 monthNumber: 1 dayNumber: 1).
+
+	salesBook := OrderedCollection new.
+
+	self should: [ Cashier onDate: dateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: salesBook
+					withMP: self defaultSimulatedMP
+					withCart: aCart
+					withCreditCard: creditCard. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+				self assert: Cashier errorMessageCardNameTooLong equals: anError messageText .
+				self assert: salesBook isEmpty.
+		].
+	! !
+!Cashier class methodsFor: 'instance creation' stamp: 'js 11/5/2019 22:35:21'!
+errorMessageCardNameTooLong
+
+	^ 'Card name too long'.! !
+!Cashier methodsFor: 'checkout' stamp: 'js 11/5/2019 22:35:29' prior: 50779089!
+assertValidCardName: aCreditCard
+
+	(aCreditCard nameLength > 30) ifTrue: [self error: self errorMessageCardNameTooLong ].
+! !
+
+!methodRemoval: Cashier #assertValidCardWithName:withNumber: stamp: 'js 11/5/2019 22:35:41'!
+assertValidCardWithName: anOwnerName withNumber:aNumber
+
+	(anOwnerName size between:1 and: 30) ifFalse: [self error: self invalidCardErrorMessage ].
+	(aNumber size = 16) ifFalse: [self error: self invalidCardErrorMessage ].
+!
+!Cashier class methodsFor: 'instance creation' stamp: 'js 11/5/2019 22:35:56'!
+errorMessageExpiredCreditCard
+
+	^ 'Expired credit card.'.! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'js 11/5/2019 22:35:56' prior: 50778896!
+assertExpirationOf: aCreditCard on: aCheckoutDate
+
+	(aCreditCard isExpiredOn: aCheckoutDate) ifTrue: [ self error: self class errorMessageExpiredCreditCard ].! !
+!Cashier methodsFor: 'as yet unclassified' stamp: 'js 11/5/2019 22:35:56' prior: 50780688!
+assertExpirationOf: aCreditCard on: aCheckoutDate
+
+	(aCreditCard isExpiredOn: aCheckoutDate) ifTrue: [ self error: self class errorMessageExpiredCreditCard ].! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'js 11/5/2019 22:35:56' prior: 50780565!
+test05ExpiredCardShouldRaiseErrorWithCashier
+
+	| aCart cardDate cardId cardName creditCard dateToTest salesBook |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cardId := '0123456789012345'.
+	cardName := 'Ada'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2022 monthNumber: 1 dayNumber: 1).
+
+	salesBook := OrderedCollection new.
+
+	self should: [ Cashier onDate: dateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: salesBook
+					withMP: self defaultSimulatedMP
+					withCart: aCart
+					withCreditCard: creditCard. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+				self assert: Cashier errorMessageExpiredCreditCard equals: anError messageText.
+				self assert: salesBook isEmpty.
+			 ].
+	! !
+
+!methodRemoval: Cashier class #errorMsgExpiredCreditCard stamp: 'js 11/5/2019 22:35:56'!
+errorMsgExpiredCreditCard
+
+	^ 'Expired credit card.'.!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 22:35:58'!
+ERROR!
+!Cashier methodsFor: 'checkout' stamp: 'js 11/5/2019 22:36:23' prior: 50780666!
+assertValidCardName: aCreditCard
+
+	(aCreditCard nameLength > 30) ifTrue: [self error: self class errorMessageCardNameTooLong ].
+! !
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 22:36:25'!
+PASSED!
+
+!testRun: #CashierTest #test01EmptyCarShouldtRaiseErrorOnCheckout stamp: 'js 11/5/2019 22:36:25'!
+PASSED!
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/5/2019 22:36:25'!
+PASSED!
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/5/2019 22:36:25'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 22:36:25'!
+PASSED!
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorWithCashier stamp: 'js 11/5/2019 22:36:25'!
+PASSED!
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 22:36:25'!
+PASSED!
+
+!testRun: #CashierTest #test07SalesBookIsFilledCorrectlyWhenCheckingOut stamp: 'js 11/5/2019 22:36:25'!
+PASSED!
+!Cashier class methodsFor: 'instance creation' stamp: 'js 11/5/2019 22:36:40'!
+itemNotInPriceListErrorMessage
+
+	^ 'There are items that are not in our price list.'! !
+
+!methodRemoval: Cashier #itemNotInPriceListErrorMessage stamp: 'js 11/5/2019 22:36:45'!
+itemNotInPriceListErrorMessage
+
+	^ 'There are items that are not in our price list.'!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 22:36:48'!
+PASSED!
+
+!testRun: #CashierTest #test01EmptyCarShouldtRaiseErrorOnCheckout stamp: 'js 11/5/2019 22:36:48'!
+PASSED!
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/5/2019 22:36:48'!
+PASSED!
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/5/2019 22:36:48'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 22:36:48'!
+PASSED!
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorWithCashier stamp: 'js 11/5/2019 22:36:48'!
+PASSED!
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 22:36:48'!
+PASSED!
+
+!testRun: #CashierTest #test07SalesBookIsFilledCorrectlyWhenCheckingOut stamp: 'js 11/5/2019 22:36:48'!
+PASSED!
+
+!methodRemoval: Cashier class #itemNotInPriceListErrorMessage stamp: 'js 11/5/2019 22:36:57'!
+itemNotInPriceListErrorMessage
+
+	^ 'There are items that are not in our price list.'!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 22:37:00'!
+PASSED!
+
+!testRun: #CashierTest #test01EmptyCarShouldtRaiseErrorOnCheckout stamp: 'js 11/5/2019 22:37:00'!
+PASSED!
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/5/2019 22:37:00'!
+PASSED!
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/5/2019 22:37:00'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 22:37:00'!
+PASSED!
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorWithCashier stamp: 'js 11/5/2019 22:37:00'!
+PASSED!
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 22:37:00'!
+PASSED!
+
+!testRun: #CashierTest #test07SalesBookIsFilledCorrectlyWhenCheckingOut stamp: 'js 11/5/2019 22:37:00'!
+PASSED!
+!CashierTest methodsFor: 'support' stamp: 'js 11/5/2019 22:37:51'!
+createCartWithElements
+
+	| aCart |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	^ aCart! !
+!CashierTest methodsFor: 'support' stamp: 'js 11/5/2019 22:37:59'!
+cartWithElements
+
+	| aCart |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	^ aCart! !
+
+!methodRemoval: CashierTest #createCartWithElements stamp: 'js 11/5/2019 22:37:59'!
+createCartWithElements
+
+	| aCart |
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	^ aCart!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:38:14' prior: 50780624!
+test04CheckOutWithLongCardNameRaisesError
+
+	"Consideramos que no tiene sentido enviarle al MerchantProcessor un nombre de mas de 30 caracteres cuando ya sabemos que es invalido"
+
+	| cardDate cardId cardName creditCard dateToTest salesBook |
+
+	cardId := '0123456789012345'.
+	cardName := 'aNameLongerThanThirtyCharacters'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2019 monthNumber: 1 dayNumber: 1).
+
+	salesBook := OrderedCollection new.
+
+	self should: [ Cashier onDate: dateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: salesBook
+					withMP: self defaultSimulatedMP
+					withCart: self cartWithElements
+					withCreditCard: creditCard. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+				self assert: Cashier errorMessageCardNameTooLong equals: anError messageText .
+				self assert: salesBook isEmpty.
+		].
+	! !
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 22:38:15'!
+PASSED!
+
+!testRun: #CashierTest #test01EmptyCarShouldtRaiseErrorOnCheckout stamp: 'js 11/5/2019 22:38:15'!
+PASSED!
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/5/2019 22:38:15'!
+PASSED!
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/5/2019 22:38:15'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 22:38:15'!
+PASSED!
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorWithCashier stamp: 'js 11/5/2019 22:38:15'!
+PASSED!
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 22:38:15'!
+PASSED!
+
+!testRun: #CashierTest #test07SalesBookIsFilledCorrectlyWhenCheckingOut stamp: 'js 11/5/2019 22:38:15'!
+PASSED!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:38:44' prior: 50780705!
+test05ExpiredCardShouldRaiseErrorWithCashier
+
+	| cardDate cardId cardName creditCard dateToTest salesBook |
+
+	cardId := '0123456789012345'.
+	cardName := 'Ada'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2022 monthNumber: 1 dayNumber: 1).
+
+	salesBook := OrderedCollection new.
+
+	self should: [ Cashier onDate: dateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: salesBook
+					withMP: self defaultSimulatedMP
+					withCart: self cartWithElements
+					withCreditCard: creditCard. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+				self assert: Cashier errorMessageExpiredCreditCard equals: anError messageText.
+				self assert: salesBook isEmpty.
+			 ].
+	! !
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorWithCashier stamp: 'js 11/5/2019 22:38:45'!
+PASSED!
+
+!testRun: #CashierTest #test01EmptyCarShouldtRaiseErrorOnCheckout stamp: 'js 11/5/2019 22:38:45'!
+PASSED!
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/5/2019 22:38:45'!
+PASSED!
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/5/2019 22:38:45'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 22:38:45'!
+PASSED!
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorWithCashier stamp: 'js 11/5/2019 22:38:45'!
+PASSED!
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 22:38:45'!
+PASSED!
+
+!testRun: #CashierTest #test07SalesBookIsFilledCorrectlyWhenCheckingOut stamp: 'js 11/5/2019 22:38:45'!
+PASSED!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:39:00' prior: 50780278!
+test06CheckoutWithMPErrorCanBeHandledCorrectly
+
+	| cashier aMPSimulator salesBook |
+
+	aMPSimulator := MerchantProcessorSimulator returning:
+		[ ^ MerchantProcessorSimulator error: MerchantProcessorSimulator financialErrorMsg ].
+
+	salesBook := OrderedCollection new.
+
+	cashier := Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: salesBook
+					withMP: aMPSimulator
+					withCart: self cartWithElements
+					withCreditCard: self defaultCreditCard .
+
+	self should: [ cashier checkOut ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: MerchantProcessorSimulator financialErrorMsg.
+			self assert: salesBook isEmpty.
+		 ]! !
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 22:39:01'!
+PASSED!
+
+!testRun: #CashierTest #test01EmptyCarShouldtRaiseErrorOnCheckout stamp: 'js 11/5/2019 22:39:01'!
+PASSED!
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/5/2019 22:39:01'!
+PASSED!
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/5/2019 22:39:01'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 22:39:01'!
+PASSED!
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorWithCashier stamp: 'js 11/5/2019 22:39:01'!
+PASSED!
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 22:39:01'!
+PASSED!
+
+!testRun: #CashierTest #test07SalesBookIsFilledCorrectlyWhenCheckingOut stamp: 'js 11/5/2019 22:39:01'!
+PASSED!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:39:29' prior: 50780432!
+test07SalesBookIsFilledCorrectlyWhenCheckingOut
+
+	|cashier aCart salesBook |
+
+	aCart := self cartWithElements.
+
+	salesBook := OrderedCollection new.
+
+	cashier := Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: salesBook
+					withMP: self defaultSimulatedMP
+					withCart: aCart
+					withCreditCard: self defaultCreditCard .
+
+	cashier checkOut.
+
+	self assert: 1 equals: salesBook size.
+	self assert: (salesBook includes: aCart).
+		 ! !
+
+!testRun: #CashierTest #test07SalesBookIsFilledCorrectlyWhenCheckingOut stamp: 'js 11/5/2019 22:39:31'!
+PASSED!
+
+!testRun: #CashierTest #test01EmptyCarShouldtRaiseErrorOnCheckout stamp: 'js 11/5/2019 22:39:31'!
+PASSED!
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/5/2019 22:39:31'!
+PASSED!
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/5/2019 22:39:31'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 22:39:31'!
+PASSED!
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorWithCashier stamp: 'js 11/5/2019 22:39:31'!
+PASSED!
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 22:39:31'!
+PASSED!
+
+!testRun: #CashierTest #test07SalesBookIsFilledCorrectlyWhenCheckingOut stamp: 'js 11/5/2019 22:39:31'!
+PASSED!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:40:11' prior: 50780012!
+test03CartWithMoreThanOneItemSumsCorrectly
+
+	|cashier aCart total|
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cashier := Cashier onDate: self defaultDateToTest
+						withPriceList: self defaultPriceList
+						withSalesBook: self defaultSalesBook
+						withMP: self defaultSimulatedMP
+						withCart: aCart
+						withCreditCard: self defaultCreditCard.
+
+	total := cashier checkOut.
+
+	self assert: 100 equals: total. ! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:41:18'!
+test04CheckOutWithLongCardNameRaisesErrorCreatingCashier
+
+	"Consideramos que no tiene sentido enviarle al MerchantProcessor un nombre de mas de 30 caracteres cuando ya sabemos que es invalido"
+
+	| cardDate cardId cardName creditCard dateToTest salesBook |
+
+	cardId := '0123456789012345'.
+	cardName := 'aNameLongerThanThirtyCharacters'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2019 monthNumber: 1 dayNumber: 1).
+
+	salesBook := OrderedCollection new.
+
+	self should: [ Cashier onDate: dateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: salesBook
+					withMP: self defaultSimulatedMP
+					withCart: self cartWithElements
+					withCreditCard: creditCard. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+				self assert: Cashier errorMessageCardNameTooLong equals: anError messageText .
+				self assert: salesBook isEmpty.
+		].
+	! !
+
+!methodRemoval: CashierTest #test04CheckOutWithLongCardNameRaisesError stamp: 'js 11/5/2019 22:41:18'!
+test04CheckOutWithLongCardNameRaisesError
+
+	"Consideramos que no tiene sentido enviarle al MerchantProcessor un nombre de mas de 30 caracteres cuando ya sabemos que es invalido"
+
+	| cardDate cardId cardName creditCard dateToTest salesBook |
+
+	cardId := '0123456789012345'.
+	cardName := 'aNameLongerThanThirtyCharacters'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2019 monthNumber: 1 dayNumber: 1).
+
+	salesBook := OrderedCollection new.
+
+	self should: [ Cashier onDate: dateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: salesBook
+					withMP: self defaultSimulatedMP
+					withCart: self cartWithElements
+					withCreditCard: creditCard. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+				self assert: Cashier errorMessageCardNameTooLong equals: anError messageText .
+				self assert: salesBook isEmpty.
+		].
+	!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:41:27'!
+test05ExpiredCardShouldRaiseErrorCreatingCashier
+
+	| cardDate cardId cardName creditCard dateToTest salesBook |
+
+	cardId := '0123456789012345'.
+	cardName := 'Ada'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2022 monthNumber: 1 dayNumber: 1).
+
+	salesBook := OrderedCollection new.
+
+	self should: [ Cashier onDate: dateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: salesBook
+					withMP: self defaultSimulatedMP
+					withCart: self cartWithElements
+					withCreditCard: creditCard. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+				self assert: Cashier errorMessageExpiredCreditCard equals: anError messageText.
+				self assert: salesBook isEmpty.
+			 ].
+	! !
+
+!methodRemoval: CashierTest #test05ExpiredCardShouldRaiseErrorWithCashier stamp: 'js 11/5/2019 22:41:27'!
+test05ExpiredCardShouldRaiseErrorWithCashier
+
+	| cardDate cardId cardName creditCard dateToTest salesBook |
+
+	cardId := '0123456789012345'.
+	cardName := 'Ada'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2022 monthNumber: 1 dayNumber: 1).
+
+	salesBook := OrderedCollection new.
+
+	self should: [ Cashier onDate: dateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: salesBook
+					withMP: self defaultSimulatedMP
+					withCart: self cartWithElements
+					withCreditCard: creditCard. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+				self assert: Cashier errorMessageExpiredCreditCard equals: anError messageText.
+				self assert: salesBook isEmpty.
+			 ].
+	!
+
+!methodRemoval: Cashier #invalidCardErrorMessage stamp: 'js 11/5/2019 22:41:56'!
+invalidCardErrorMessage
+
+	^ 'The card is invalid.'!
+
+!methodRemoval: Cashier class #invalidCardErrorMessage stamp: 'js 11/5/2019 22:42:05'!
+invalidCardErrorMessage
+
+	^ 'The card is invalid.'!
+
+!testRun: #CashierTest #test01EmptyCarShouldtRaiseErrorOnCheckout stamp: 'js 11/5/2019 22:42:13'!
+PASSED!
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/5/2019 22:42:13'!
+PASSED!
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/5/2019 22:42:13'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesErrorCreatingCashier stamp: 'js 11/5/2019 22:42:13'!
+PASSED!
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorCreatingCashier stamp: 'js 11/5/2019 22:42:13'!
+PASSED!
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 22:42:13'!
+PASSED!
+
+!testRun: #CashierTest #test07SalesBookIsFilledCorrectlyWhenCheckingOut stamp: 'js 11/5/2019 22:42:13'!
+PASSED!
+
+!testRun: #CreditCardTest #test01InvalidAmountOfDigitsRaisesError stamp: 'js 11/5/2019 22:42:14'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CanCreateValidCardAndRemebersInformation stamp: 'js 11/5/2019 22:42:14'!
+PASSED!
+
+!testRun: #CreditCardTest #test03ExpiredCardIsExpired stamp: 'js 11/5/2019 22:42:14'!
+PASSED!
+
+!testRun: #CreditCardTest #test04NonExpiredCardIsNotExpired stamp: 'js 11/5/2019 22:42:14'!
+PASSED!
+
+!testRun: #CreditCardTest #test05CardWithEmptyNameIsNotValid stamp: 'js 11/5/2019 22:42:14'!
+PASSED!
+!CartTest methodsFor: 'support' stamp: 'js 11/5/2019 22:43:13' prior: 50777374!
+defaultPriceList
+
+	| priceList |
+
+	priceList := Dictionary new.
+	priceList at: self itemSellByTheStore put: 50.
+
+	^ priceList .
+	! !
+!CartTest methodsFor: 'support' stamp: 'js 11/5/2019 22:43:25' prior: 50777381!
+itemNotSellByTheStore
+
+	^ 'invalidBook'! !
+!CartTest methodsFor: 'support' stamp: 'js 11/5/2019 22:43:32' prior: 50777370!
+createCart
+
+	^ Cart acceptingItemsOf: self defaultPriceList.! !
+
+!methodRemoval: CashierTest #defaultCatalog stamp: 'js 11/5/2019 22:45:13'!
+defaultCatalog
+
+	^ Array with: self itemSellByTheStore with: self itemNotInPriceList.!
+
+!methodRemoval: Cart #doWithContents: stamp: 'js 11/5/2019 22:45:38'!
+doWithContents: anAction
+
+	^ items do: anAction .
+	!
+
+!methodRemoval: CashierTest #itemNotInPriceList stamp: 'js 11/5/2019 22:46:18'!
+itemNotInPriceList
+
+	^ 'aBookNotInPriceList'.!
+
+!classDefinition: #CashierTest category: #TusLibros stamp: 'js 11/5/2019 22:53:00'!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'merchantProcessorAction'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CashierTest methodsFor: 'support' stamp: 'js 11/5/2019 22:52:59'!
+debit: anAmount from: aCreditCard
+
+	^ merchantProcessorAction value.! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:53:26'!
+setup
+
+	merchantProcessorAction := []
+
+! !
+
+!testRun: #CashierTest #test01EmptyCarShouldtRaiseErrorOnCheckout stamp: 'js 11/5/2019 22:53:30'!
+PASSED!
+
+!testRun: #CashierTest #test01EmptyCarShouldtRaiseErrorOnCheckout stamp: 'js 11/5/2019 22:53:33'!
+PASSED!
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/5/2019 22:53:33'!
+PASSED!
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/5/2019 22:53:33'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesErrorCreatingCashier stamp: 'js 11/5/2019 22:53:33'!
+PASSED!
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorCreatingCashier stamp: 'js 11/5/2019 22:53:33'!
+PASSED!
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 22:53:33'!
+PASSED!
+
+!testRun: #CashierTest #test07SalesBookIsFilledCorrectlyWhenCheckingOut stamp: 'js 11/5/2019 22:53:33'!
+PASSED!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:53:42' prior: 50780233!
+test01EmptyCarShouldtRaiseErrorOnCheckout
+
+	| anEmptyCart aSalesBook |
+
+	anEmptyCart := self createCart.
+	aSalesBook := OrderedCollection new.
+
+	self should: [ Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: aSalesBook
+					withMP: self
+					withCart: anEmptyCart
+					withCreditCard: self defaultCreditCard . ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [ :anError |
+				self assert: Cashier errorMessageEmptyCartCheckout equals: anError messageText .
+				self assert: aSalesBook isEmpty.
+			].
+
+	! !
+
+!testRun: #CashierTest #test01EmptyCarShouldtRaiseErrorOnCheckout stamp: 'js 11/5/2019 22:53:43'!
+PASSED!
+
+!testRun: #CashierTest #test01EmptyCarShouldtRaiseErrorOnCheckout stamp: 'js 11/5/2019 22:53:43'!
+PASSED!
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/5/2019 22:53:43'!
+PASSED!
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/5/2019 22:53:43'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesErrorCreatingCashier stamp: 'js 11/5/2019 22:53:43'!
+PASSED!
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorCreatingCashier stamp: 'js 11/5/2019 22:53:43'!
+PASSED!
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 22:53:43'!
+PASSED!
+
+!testRun: #CashierTest #test07SalesBookIsFilledCorrectlyWhenCheckingOut stamp: 'js 11/5/2019 22:53:43'!
+PASSED!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:55:04' prior: 50780330!
+test02CartWithOneItemSumsCorrectly
+
+	|cashier aCart total|
+
+	aCart := self createCart.
+	aCart add: 1 of: self itemSellByTheStore .
+
+	cashier := Cashier onDate: self defaultDateToTest
+						withPriceList: self defaultPriceList
+						withSalesBook: self defaultSalesBook
+						withMP: self
+						withCart: aCart
+						withCreditCard: self defaultCreditCard .
+
+	total := cashier checkOut.
+
+	self assert: 50 equals: total. ! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:55:10' prior: 50781086!
+test03CartWithMoreThanOneItemSumsCorrectly
+
+	|cashier aCart total|
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cashier := Cashier onDate: self defaultDateToTest
+						withPriceList: self defaultPriceList
+						withSalesBook: self defaultSalesBook
+						withMP: self
+						withCart: aCart
+						withCreditCard: self defaultCreditCard.
+
+	total := cashier checkOut.
+
+	self assert: 100 equals: total. ! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:55:33' prior: 50781422!
+test03CartWithMoreThanOneItemSumsCorrectly
+
+	|cashier aCart total|
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cashier := Cashier onDate: self defaultDateToTest
+						withPriceList: self defaultPriceList
+						withSalesBook: self defaultSalesBook
+						withMP: self defaultSimulatedMP
+						withCart: aCart
+						withCreditCard: self defaultCreditCard.
+
+	total := cashier checkOut.
+
+	self assert: 100 equals: total. ! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:55:40' prior: 50781406!
+test02CartWithOneItemSumsCorrectly
+
+	|cashier aCart total|
+
+	aCart := self createCart.
+	aCart add: 1 of: self itemSellByTheStore .
+
+	cashier := Cashier onDate: self defaultDateToTest
+						withPriceList: self defaultPriceList
+						withSalesBook: self defaultSalesBook
+						withMP: self defaultSimulatedMP
+						withCart: aCart
+						withCreditCard: self defaultCreditCard .
+
+	total := cashier checkOut.
+
+	self assert: 50 equals: total. ! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:55:43' prior: 50781357!
+test01EmptyCarShouldtRaiseErrorOnCheckout
+
+	| anEmptyCart aSalesBook |
+
+	anEmptyCart := self createCart.
+	aSalesBook := OrderedCollection new.
+
+	self should: [ Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: aSalesBook
+					withMP: self defaultSimulatedMP
+					withCart: anEmptyCart
+					withCreditCard: self defaultCreditCard . ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [ :anError |
+				self assert: Cashier errorMessageEmptyCartCheckout equals: anError messageText .
+				self assert: aSalesBook isEmpty.
+			].
+
+	! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:56:03'!
+defaultMerchantProcessor
+
+	^ MerchantProcessorSimulator returning: [].
+! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'js 11/5/2019 22:56:03' prior: 50781473!
+test01EmptyCarShouldtRaiseErrorOnCheckout
+
+	| anEmptyCart aSalesBook |
+
+	anEmptyCart := self createCart.
+	aSalesBook := OrderedCollection new.
+
+	self should: [ Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: aSalesBook
+					withMP: self defaultMerchantProcessor
+					withCart: anEmptyCart
+					withCreditCard: self defaultCreditCard . ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [ :anError |
+				self assert: Cashier errorMessageEmptyCartCheckout equals: anError messageText .
+				self assert: aSalesBook isEmpty.
+			].
+
+	! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'js 11/5/2019 22:56:03' prior: 50781439!
+test03CartWithMoreThanOneItemSumsCorrectly
+
+	|cashier aCart total|
+
+	aCart := self createCart.
+	aCart add: 2 of: self itemSellByTheStore.
+
+	cashier := Cashier onDate: self defaultDateToTest
+						withPriceList: self defaultPriceList
+						withSalesBook: self defaultSalesBook
+						withMP: self defaultMerchantProcessor
+						withCart: aCart
+						withCreditCard: self defaultCreditCard.
+
+	total := cashier checkOut.
+
+	self assert: 100 equals: total. ! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'js 11/5/2019 22:56:03' prior: 50781103!
+test04CheckOutWithLongCardNameRaisesErrorCreatingCashier
+
+	"Consideramos que no tiene sentido enviarle al MerchantProcessor un nombre de mas de 30 caracteres cuando ya sabemos que es invalido"
+
+	| cardDate cardId cardName creditCard dateToTest salesBook |
+
+	cardId := '0123456789012345'.
+	cardName := 'aNameLongerThanThirtyCharacters'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2019 monthNumber: 1 dayNumber: 1).
+
+	salesBook := OrderedCollection new.
+
+	self should: [ Cashier onDate: dateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: salesBook
+					withMP: self defaultMerchantProcessor
+					withCart: self cartWithElements
+					withCreditCard: creditCard. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+				self assert: Cashier errorMessageCardNameTooLong equals: anError messageText .
+				self assert: salesBook isEmpty.
+		].
+	! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'js 11/5/2019 22:56:03' prior: 50781456!
+test02CartWithOneItemSumsCorrectly
+
+	|cashier aCart total|
+
+	aCart := self createCart.
+	aCart add: 1 of: self itemSellByTheStore .
+
+	cashier := Cashier onDate: self defaultDateToTest
+						withPriceList: self defaultPriceList
+						withSalesBook: self defaultSalesBook
+						withMP: self defaultMerchantProcessor
+						withCart: aCart
+						withCreditCard: self defaultCreditCard .
+
+	total := cashier checkOut.
+
+	self assert: 50 equals: total. ! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'js 11/5/2019 22:56:03' prior: 50781174!
+test05ExpiredCardShouldRaiseErrorCreatingCashier
+
+	| cardDate cardId cardName creditCard dateToTest salesBook |
+
+	cardId := '0123456789012345'.
+	cardName := 'Ada'.
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: cardId withName: cardName withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2022 monthNumber: 1 dayNumber: 1).
+
+	salesBook := OrderedCollection new.
+
+	self should: [ Cashier onDate: dateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: salesBook
+					withMP: self defaultMerchantProcessor
+					withCart: self cartWithElements
+					withCreditCard: creditCard. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+				self assert: Cashier errorMessageExpiredCreditCard equals: anError messageText.
+				self assert: salesBook isEmpty.
+			 ].
+	! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'js 11/5/2019 22:56:03' prior: 50781040!
+test07SalesBookIsFilledCorrectlyWhenCheckingOut
+
+	|cashier aCart salesBook |
+
+	aCart := self cartWithElements.
+
+	salesBook := OrderedCollection new.
+
+	cashier := Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: salesBook
+					withMP: self defaultMerchantProcessor
+					withCart: aCart
+					withCreditCard: self defaultCreditCard .
+
+	cashier checkOut.
+
+	self assert: 1 equals: salesBook size.
+	self assert: (salesBook includes: aCart).
+		 ! !
+
+!methodRemoval: CashierTest #defaultSimulatedMP stamp: 'js 11/5/2019 22:56:03'!
+defaultSimulatedMP
+
+	^ MerchantProcessorSimulator returning: [].
+!
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:56:27' prior: 50781494!
+defaultMerchantProcessor
+
+	merchantProcessorAction := [].
+	^ self.
+! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:57:20'!
+defaultMerchantProcessorWithAction: anAction
+
+	merchantProcessorAction := anAction.
+	^ self.
+! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:57:39'!
+merchantProcessorWithAction: anAction
+
+	merchantProcessorAction := anAction.
+	^ self.
+! !
+
+!methodRemoval: CashierTest #defaultMerchantProcessorWithAction: stamp: 'js 11/5/2019 22:57:39'!
+defaultMerchantProcessorWithAction: anAction
+
+	merchantProcessorAction := anAction.
+	^ self.
+!
+!CashierTest class methodsFor: 'nil' stamp: 'js 11/5/2019 22:58:46'!
+errorMessageMerchantProcessorError
+
+	^ 'Merchant processor error. FInantial error.'! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:59:08' prior: 50780987!
+test06CheckoutWithMPErrorCanBeHandledCorrectly
+
+	| cashier aMerchantProcessor salesBook |
+
+
+	aMerchantProcessor := self merchantProcessorWithAction: [ self error: self class errorMessageMerchantProcessorError ].
+
+	salesBook := OrderedCollection new.
+
+	cashier := Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: salesBook
+					withMP: aMerchantProcessor
+					withCart: self cartWithElements
+					withCreditCard: self defaultCreditCard .
+
+	self should: [ cashier checkOut ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: MerchantProcessorSimulator financialErrorMsg.
+			self assert: salesBook isEmpty.
+		 ]! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/5/2019 22:59:19' prior: 50781677!
+test06CheckoutWithMPErrorCanBeHandledCorrectly
+
+	| cashier aMerchantProcessor salesBook |
+
+
+	aMerchantProcessor := self merchantProcessorWithAction: [ self error: self class errorMessageMerchantProcessorError ].
+
+	salesBook := OrderedCollection new.
+
+	cashier := Cashier onDate: self defaultDateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: salesBook
+					withMP: aMerchantProcessor
+					withCart: self cartWithElements
+					withCreditCard: self defaultCreditCard .
+
+	self should: [ cashier checkOut ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText equals: self class errorMessageMerchantProcessorError.
+			self assert: salesBook isEmpty.
+		 ]! !
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 22:59:20'!
+PASSED!
+
+!testRun: #CashierTest #test01EmptyCarShouldtRaiseErrorOnCheckout stamp: 'js 11/5/2019 22:59:20'!
+PASSED!
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/5/2019 22:59:20'!
+PASSED!
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/5/2019 22:59:20'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesErrorCreatingCashier stamp: 'js 11/5/2019 22:59:20'!
+PASSED!
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorCreatingCashier stamp: 'js 11/5/2019 22:59:20'!
+PASSED!
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 22:59:20'!
+PASSED!
+
+!testRun: #CashierTest #test07SalesBookIsFilledCorrectlyWhenCheckingOut stamp: 'js 11/5/2019 22:59:20'!
+PASSED!
+
+!classRemoval: #MerchantProcessorSimulator stamp: 'js 11/5/2019 22:59:26'!
+Object subclass: #MerchantProcessorSimulator
+	instanceVariableNames: 'action'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!testRun: #CashierTest #test01EmptyCarShouldtRaiseErrorOnCheckout stamp: 'js 11/5/2019 22:59:33'!
+PASSED!
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/5/2019 22:59:33'!
+PASSED!
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/5/2019 22:59:33'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesErrorCreatingCashier stamp: 'js 11/5/2019 22:59:33'!
+PASSED!
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorCreatingCashier stamp: 'js 11/5/2019 22:59:33'!
+PASSED!
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 22:59:33'!
+PASSED!
+
+!testRun: #CashierTest #test07SalesBookIsFilledCorrectlyWhenCheckingOut stamp: 'js 11/5/2019 22:59:33'!
+PASSED!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'js 11/5/2019 23:00:58'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'js 11/5/2019 23:00:58'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'js 11/5/2019 23:00:58'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'js 11/5/2019 23:00:58'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'js 11/5/2019 23:00:58'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'js 11/5/2019 23:00:58'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'js 11/5/2019 23:00:58'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'js 11/5/2019 23:00:58'!
+PASSED!
+
+!testRun: #CartTest #test09CartDoesNotAddNonIntegerQuantity stamp: 'js 11/5/2019 23:00:58'!
+PASSED!
+
+!testRun: #CashierTest #test01EmptyCarShouldtRaiseErrorOnCheckout stamp: 'js 11/5/2019 23:01:00'!
+PASSED!
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/5/2019 23:01:00'!
+PASSED!
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/5/2019 23:01:00'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesErrorCreatingCashier stamp: 'js 11/5/2019 23:01:00'!
+PASSED!
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorCreatingCashier stamp: 'js 11/5/2019 23:01:00'!
+PASSED!
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/5/2019 23:01:00'!
+PASSED!
+
+!testRun: #CashierTest #test07SalesBookIsFilledCorrectlyWhenCheckingOut stamp: 'js 11/5/2019 23:01:00'!
+PASSED!
+
+!testRun: #CreditCardTest #test01InvalidAmountOfDigitsRaisesError stamp: 'js 11/5/2019 23:01:01'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CanCreateValidCardAndRemebersInformation stamp: 'js 11/5/2019 23:01:01'!
+PASSED!
+
+!testRun: #CreditCardTest #test03ExpiredCardIsExpired stamp: 'js 11/5/2019 23:01:01'!
+PASSED!
+
+!testRun: #CreditCardTest #test04NonExpiredCardIsNotExpired stamp: 'js 11/5/2019 23:01:01'!
+PASSED!
+
+!testRun: #CreditCardTest #test05CardWithEmptyNameIsNotValid stamp: 'js 11/5/2019 23:01:01'!
+PASSED!
+
+----QUIT----(5 November 2019 23:08:46) CuisUniversity-3938.image priorSource: 14319118!
+
+----STARTUP---- (6 November 2019 20:11:50) as /home/jonno/exactas/ing1/cuis/TusLibros2/CuisUniversity-3938.image!
+
+
+!testRun: #CreditCardTest #test01InvalidAmountOfDigitsRaisesError stamp: 'js 11/6/2019 20:27:25'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CanCreateValidCardAndRemebersInformation stamp: 'js 11/6/2019 20:27:25'!
+PASSED!
+
+!testRun: #CreditCardTest #test03ExpiredCardIsExpired stamp: 'js 11/6/2019 20:27:25'!
+PASSED!
+
+!testRun: #CreditCardTest #test04NonExpiredCardIsNotExpired stamp: 'js 11/6/2019 20:27:25'!
+PASSED!
+
+!testRun: #CreditCardTest #test05CardWithEmptyNameIsNotValid stamp: 'js 11/6/2019 20:27:25'!
+PASSED!
+
+!testRun: #CashierTest #test01EmptyCarShouldtRaiseErrorOnCheckout stamp: 'js 11/6/2019 20:27:27'!
+PASSED!
+
+!testRun: #CashierTest #test02CartWithOneItemSumsCorrectly stamp: 'js 11/6/2019 20:27:27'!
+PASSED!
+
+!testRun: #CashierTest #test03CartWithMoreThanOneItemSumsCorrectly stamp: 'js 11/6/2019 20:27:27'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckOutWithLongCardNameRaisesErrorCreatingCashier stamp: 'js 11/6/2019 20:27:27'!
+PASSED!
+
+!testRun: #CashierTest #test05ExpiredCardShouldRaiseErrorCreatingCashier stamp: 'js 11/6/2019 20:27:27'!
+PASSED!
+
+!testRun: #CashierTest #test06CheckoutWithMPErrorCanBeHandledCorrectly stamp: 'js 11/6/2019 20:27:27'!
+PASSED!
+
+!testRun: #CashierTest #test07SalesBookIsFilledCorrectlyWhenCheckingOut stamp: 'js 11/6/2019 20:27:27'!
+PASSED!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'js 11/6/2019 20:27:29'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'js 11/6/2019 20:27:29'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'js 11/6/2019 20:27:29'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'js 11/6/2019 20:27:29'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'js 11/6/2019 20:27:29'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'js 11/6/2019 20:27:29'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'js 11/6/2019 20:27:29'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'js 11/6/2019 20:27:29'!
+PASSED!
+
+!testRun: #CartTest #test09CartDoesNotAddNonIntegerQuantity stamp: 'js 11/6/2019 20:27:29'!
+PASSED!
+!CashierTest methodsFor: 'test' stamp: 'js 11/6/2019 20:29:02' prior: 50781595!
+test05ExpiredCardShouldRaiseErrorCreatingCashier
+
+	| cardDate creditCard dateToTest salesBook |
+
+	cardDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: '0123456789012345'
+								withName: 'Ada'
+								withExpirationDate: cardDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2022 monthNumber: 1 dayNumber: 1).
+
+	salesBook := OrderedCollection new.
+
+	self should: [ Cashier onDate: dateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: salesBook
+					withMP: self defaultMerchantProcessor
+					withCart: self cartWithElements
+					withCreditCard: creditCard. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+				self assert: Cashier errorMessageExpiredCreditCard equals: anError messageText.
+				self assert: salesBook isEmpty.
+			 ].
+	! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/6/2019 20:29:17' prior: 50781932!
+test05ExpiredCardShouldRaiseErrorCreatingCashier
+
+	| expirationDate creditCard dateToTest salesBook |
+
+	expirationDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: '0123456789012345'
+								withName: 'Ada'
+								withExpirationDate: expirationDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2022 monthNumber: 1 dayNumber: 1).
+
+	salesBook := OrderedCollection new.
+
+	self should: [ Cashier onDate: dateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: salesBook
+					withMP: self defaultMerchantProcessor
+					withCart: self cartWithElements
+					withCreditCard: creditCard. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+				self assert: Cashier errorMessageExpiredCreditCard equals: anError messageText.
+				self assert: salesBook isEmpty.
+			 ].
+	! !
+!CashierTest methodsFor: 'test' stamp: 'js 11/6/2019 20:30:00' prior: 50781540!
+test04CheckOutWithLongCardNameRaisesErrorCreatingCashier
+
+	"Consideramos que no tiene sentido enviarle al MerchantProcessor un nombre de mas de 30 caracteres cuando ya sabemos que es invalido"
+
+	| expirationDate creditCard dateToTest salesBook |
+
+	expirationDate := GregorianMonthOfYear yearNumber: 2021 monthNumber: 1.
+	creditCard := CreditCard withId: '0123456789012345'
+								withName: 'aNameLongerThanThirtyCharacters'
+								withExpirationDate: expirationDate.
+
+	dateToTest := (FixedGregorianDate yearNumber: 2019 monthNumber: 1 dayNumber: 1).
+
+	salesBook := OrderedCollection new.
+
+	self should: [ Cashier onDate: dateToTest
+					withPriceList: self defaultPriceList
+					withSalesBook: salesBook
+					withMP: self defaultMerchantProcessor
+					withCart: self cartWithElements
+					withCreditCard: creditCard. ]
+		 raise: Error - MessageNotUnderstood
+		 withExceptionDo: [:anError |
+				self assert: Cashier errorMessageCardNameTooLong equals: anError messageText .
+				self assert: salesBook isEmpty.
+		].
+	! !

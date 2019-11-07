@@ -1,0 +1,1 @@
+Tuvimos un problema con el archivo user.changes que generamos en las maquinas del labo. Quedó cortado y se ve unicamente a partir de los cambios hechos en nuestras casas
