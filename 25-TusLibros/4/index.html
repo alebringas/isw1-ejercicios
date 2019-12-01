@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>TusLibros Puntocón</title>
+
+  <!-- Fonts to support Material Design -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+  <!-- Icons to support Material Design -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script src="./lib/react.development.js" crossorigin="anonymous"></script>
+  <script src="./lib/react-dom.development.js" crossorigin="anonymous"></script>
+  <script src="./lib/material-ui.development.js" crossorigin="anonymous"></script>
+  <script src="./lib/babel.min.js" crossorigin="anonymous"></script>
+  <script src="./src/refreshbrowser.js" crossorigin="anonymous"></script>
+
+  <!-- Libraries fallback -->
+  <script>window.React || document.write('<script src="https://unpkg.com/react@16.11.0/umd/react.development.js">\x3C/script>')</script>
+  <script>window.ReactDOM || document.write('<script src="https://unpkg.com/react-dom@16.11.0/umd/react-dom.development.js">\x3C/script>')</script>
+  <script>window.MaterialUI || document.write('<script src="https://unpkg.com/@material-ui/core@4.6.1/umd/material-ui.development.js">\x3C/script>')</script>
+  <script>window.Babel || document.write('<script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js">\x3C/script>')</script>
+  <!-- end fallback -->
+
+  <script type="text/babel" type="module">
+    const {
+      // theme, styles
+      colors,
+      createMuiTheme,
+      makeStyles,
+      withStyles,
+      // components
+      AppBar,
+      Button,
+      Container,
+      CssBaseline,
+      Icon,
+      IconButton,
+      InputAdornment,
+      InputLabel,
+      FormControl,
+      Link,
+      List,
+      ListItem,
+      ListItemIcon,
+      ListItemText,
+      OutlinedInput,
+      TextField,
+      ThemeProvider,
+      Toolbar,
+      Typography,
+    } = MaterialUI;
+    const theme = createMuiTheme({
+      palette: {
+        primary: {
+          main: '#556cd6',
+        },
+        secondary: {
+          main: '#19857b',
+        },
+        error: {
+          main: colors.red.A400,
+        },
+        background: {
+          default: '#fff',
+          paper: '#f5f5f5',
+        },
+      },
+    });
+    
+    const styles = theme => ({
+      root: {
+        margin: theme.spacing(6, 0, 3),
+      },
+      lightBulb: {
+        verticalAlign: 'middle',
+        // marginRight: theme.spacing(1),
+      },
+      rootToolBar: {
+        flexGrow: 1,
+      },
+      menuButton: {
+        marginRight: theme.spacing(2),
+      },
+      logo: {
+        marginRight: theme.spacing(2),
+        fontSize: '40px'
+      },
+      textField: {
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
+      },
+      title: {
+        flexGrow: 1,
+      },
+      rootList: {
+        width: '100%',
+        backgroundColor: theme.palette.background.paper,
+        position: 'relative',
+        overflow: 'auto',
+        maxHeight: 300,
+      },
+      textFieldDetails: {
+        margin: theme.spacing(2),
+      },
+    
+      headerButton: {
+        color: '#FFFFFF',
+        backgroundColor: '#7b7bff',
+        padding: '6px 8px',
+        margin: '0 8px'
+      },
+    
+    // --------- Book Adder
+    
+      bookAdder: {
+    
+      },
+    
+      bookAdderCantidad: {
+        textAlign: "center",
+        minWidth: "20px",
+        display: "inline-block"
+      },
+    
+    
+    // --------- Book Listing
+      listingBook: {
+        marginBottom: '10px',
+        width: '100%',
+        backgroundColor: '#e8e8e8',
+        borderRadius: '10px',
+       },
+    
+      listingBookItem: {
+        width: '65%',
+        display: 'inline-block',
+        padding: '10px',
+    
+        '&:hover': {
+          borderRadius: '10px',
+          cursor: 'pointer',
+          backgroundColor: '#c9c9c9'
+        }
+      },
+    
+      listingBookItemName: {
+        'fontSize': '16px',
+        'fontWeight': 'bold'
+      },
+      listingBookItemIsbn: {
+        fontStyle: 'italic'
+      },
+      listingBookItemPrice: {
+        'fontSize': '16px',
+      },
+    
+      listingBookBuy: {
+        display: 'inline-block',
+        verticalAlign: 'top',
+        marginTop: '25px',
+        paddingLeft: '19px',
+        width: '35%',
+      },
+    
+    // --------- Tickets
+    
+      ticket: {
+    
+        width: '100%',
+        display: 'inline-block',
+        padding: '5px',
+        marginTop: '7px',
+        borderRadius: '10px',
+        backgroundColor: '#e8e8e8',
+      },
+    
+      ticketElement: {
+        width: '100%'
+      },
+    
+      ticketQuantity: {
+        width: '10%',
+        display: 'inline-block',
+        textAlign: 'center'
+      },
+      ticketBook: {
+        width: '70%',
+        display: 'inline-block'
+      },
+      ticketPrice: {
+        width: '20%',
+        display: 'inline-block',
+        textAlign: 'right',
+        paddingRight: '22px',
+      },
+      totalPrice: {
+        textAlign: 'right',
+        marginTop: '20px',
+        marginRight: '25px',
+        fontWeight: 'bold',
+        fontSize: '20px',
+      }
+    
+    })
+    
+    const useStyles = makeStyles(styles);
+
+    const getLocalAsJson = (path) => {
+      const port = 8082
+    
+      return fetch(`http://localhost:${port}/${path}`, {
+        method: "GET",
+        dataType: "JSON",
+        headers: {
+          "Access-Control-Request-Headers": "*"
+        }
+      })
+    }
+
+    class MyToolBarComponent extends React.Component {
+      constructor(props) {
+        super(props)
+      }
+    
+      onHeaderButtonClick(path) {
+        this.props.router.navigate(path)
+      }
+      onHeaderLogoutButtonClick(path){
+        this.props.router.resetCartSize()
+        this.onHeaderButtonClick(path)
+      }
+    
+      renderHeaderButtons(current_path, classes) {
+        return current_path == "/" ? null : (
+          <div>
+            <Button className={classes.headerButton}
+              onClick={() => {this.onHeaderLogoutButtonClick("/")}}>
+              Logout
+            </Button>
+    
+            <Button className={classes.headerButton} disabled={current_path=="/catalog"}
+              onClick={() => {this.onHeaderButtonClick("/catalog")}}>
+              Catálogo
+            </Button>
+    
+            <Button className={classes.headerButton} disabled={current_path=="/history"}
+              onClick={() => {this.onHeaderButtonClick("/history")}}>
+              Historial
+            </Button>
+    
+            <Button className={classes.headerButton} disabled={current_path=="/cartList"}
+              onClick={() => {this.onHeaderButtonClick("/cartList")}}>
+              <Icon className="material-icons">
+                  shopping_cart
+              </Icon>
+              ({this.props.cartSize})
+            </Button>
+          </div>)
+      }
+    
+      render() {
+        const {
+          router,
+          title,
+          classes,
+        } = this.props
+    
+        const current_path = router.current()
+    
+        return (
+          <div className={classes.rootToolBar}>
+            <AppBar position="static">
+              <Toolbar>
+    
+                <Icon className={classes.logo}> import_contacts </Icon>
+    
+                <Typography variant="h6" className={classes.title}>
+                  {title}
+                </Typography>
+    
+                {this.renderHeaderButtons(current_path, classes)}
+    
+              </Toolbar>
+            </AppBar>
+          </div>
+        )
+      }
+    
+    }
+    
+    // Add style
+    const MyToolBar = withStyles(styles, {
+      withTheme: true
+    })(MyToolBarComponent)
+    class LoginComponent extends React.Component {
+      constructor(props) {
+        super(props)
+    
+        this.state = {
+          error: "",
+          user: "",
+          pass: "",
+          response: "",
+          cartID: ""
+        }
+      }
+    
+      handleUserChange(event) {
+        this.setState({
+          user: event.target.value
+        })
+      };
+      handlePasswordChange(event) {
+        this.setState({
+          pass: event.target.value
+        })
+      };
+    
+      handleKeyPress(event) {
+        if (event.key === "Enter") {
+          this.handleSend();
+        }
+      };
+    
+      handleSend() {
+        const {
+          router,
+        } = this.props
+    
+        const {
+          user,
+          pass,
+          response,
+        } = this.state
+    
+        getLocalAsJson(`createCart?clientId=${user}&password=${pass}`)
+          .then(function (response) {
+            return response.json()
+          })
+          .then((json) => {
+            if (json.error) {
+              throw json.error
+            }
+            return json.result
+          })
+          .then((cartId) => {
+            this.setState({ cartId: cartId })
+    
+            console.log('Seteado el id como', this.state.cartId)
+    
+            router.navigate('/catalog', { cartId: this.state.cartId,
+                                          user: this.state.user,
+                                          pass: this.state.pass })
+          })
+          .catch((error) => {
+            console.log('Looks like there was a problem: \n', error);
+            this.setState({ error: error })
+          });
+      }
+    
+    
+      render() {
+        const {
+          error,
+          user,
+          pass,
+          response,
+          cartId
+        } = this.state
+    
+        const {
+          classes,
+        } = this.props
+    
+        return (
+          <div>
+            <Typography component="h1" gutterBottom>
+              Iniciar sesión
+            </Typography>
+            <FormControl fullWidth className={classes.textField} variant="outlined">
+    
+              <OutlinedInput
+                id="user"
+                value={user}
+                onChange={(ev)=>this.handleUserChange(ev)}
+                placeholder="Usuario"
+                rows="1"
+              />
+            </FormControl>
+    
+            <FormControl fullWidth className={classes.textField} variant="outlined">
+    
+              <OutlinedInput
+                id="password"
+                type="password"
+                value={pass}
+                onChange={(ev)=>this.handlePasswordChange(ev)}
+                placeholder="Contraseña"
+                rows="1"
+                onKeyPress={(ev)=>this.handleKeyPress(ev)}
+              />
+            </FormControl>
+    
+            <Button
+              color="inherit"
+              onClick={(ev)=>this.handleSend(ev)}>
+              Create cart
+            </Button>
+    
+    
+            <ErrorMessage error={error} />
+    
+          </div>
+        )
+      }
+    }
+    
+    // Add style
+    const LoginView = withStyles(styles, {
+      withTheme: true
+    })(LoginComponent)
+    class CatalogView extends React.Component {
+      constructor(props) {
+        super(props)
+    
+        this.state = {
+          loading: true,
+        }
+      }
+    
+      componentDidMount(){
+        this.setState({
+          loading: false,
+        })
+    
+    
+      }
+    
+      render() {
+        const {
+          router,
+          classes,
+          cartId,
+          catalog
+        } = this.props
+    
+        const {
+          loading,
+          error,
+        } = this.state
+    
+        if (loading) {return( <div>Loading...</div>)}
+        if (error) {return(<ErrorMessage error={error} />)}
+    
+        return (
+          <div>
+            <Typography variant="h4" component="h4" gutterBottom>
+              CATÁLOGO
+            </Typography>
+    
+            <BookListing
+              bookListing={catalog}
+              router={router}
+              classes={classes}
+              cartId={cartId}
+            />
+          </div>
+        )
+      }
+    }
+    
+    // Add style
+    const CatalogViewStyle = withStyles(styles, {
+      withTheme: true
+    })(CatalogView)
+    class BookDetailsComponent extends React.Component {
+      constructor(props) {
+        super(props)
+    
+        this.state = {
+          details: {},
+          loading: true,
+          error: null,
+        }
+      }
+    
+      componentDidMount() {
+        this.setState({
+          loading: false,
+          error: null,
+        })
+      }
+    
+      // Podria usar un compoente de react para que sea consistente el render
+      bookDetailsComponent(name, value, classes) {
+        return (<TextField
+          id="outlined-read-only-input"
+          label={name}
+          defaultValue={value}
+          className={classes.textFieldDetails}
+          margin="normal"
+          InputProps={{
+            readOnly: true,
+          }}
+          variant="outlined"
+        />)
+      }
+    
+      render() {
+        const {
+          router,
+          cartId,
+          selectedBook,
+          classes,
+        } = this.props
+    
+        const {
+          details,
+          loading,
+          error,
+        } = this.state
+    
+        if (loading) return <div>Loading...</div>
+        if (error) return <div>{error}</div>
+    
+        return (
+          <div>
+            <Typography variant="h4" component="h4" gutterBottom>
+              Detalles de <b>{selectedBook.name}</b>
+            </Typography>
+    
+            {this.bookDetailsComponent("Nombre", selectedBook.name, classes)}
+            {this.bookDetailsComponent("Autor", selectedBook.author, classes)}
+            {this.bookDetailsComponent("Precio", selectedBook.price, classes)}
+            {this.bookDetailsComponent("ISBN", selectedBook.isbn, classes)}
+    
+            <BookAdder
+              classes={classes}
+              bookIsbn={selectedBook.isbn}
+              cartId={cartId}
+              router={router}/>
+    
+          </div>
+        )
+      }
+    }
+    
+    // Add style
+    const BookDetailsView = withStyles(styles, {
+      withTheme: true
+    })(BookDetailsComponent)
+    class App extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          path: "/",
+          selectedBook: "",
+          cartSize: 0,
+          user: "",
+          pass:"",
+          catalog:"",
+        };
+        this.userCreditCards = {
+          "pepe"  : {ccn: "1111222233334444", cced: "012030", cco: "Jose"},
+          "abrete": {ccn: "4815163248151632", cced: "012000", cco: "AliBaba"},
+          "juana"  : {ccn: "1111222233334444", cced: "012030", cco: "JuanaDeArcor"},
+        }
+      }
+    
+      userCreditCard() {
+        return this.userCreditCards[this.state.user];
+      }
+    
+      componentDidMount(){
+    
+        getLocalAsJson(`catalog?`)
+          .then(function (response) {
+            return response.json()
+          })
+          .then((json)=>{
+            this.setState({
+              catalog: json.result,
+            })
+            return json.result
+          })
+          .catch((error)=> {
+            console.log('Looks like there was a problem: \n', error);
+            this.setState({ error: error})
+          });
+      }
+    
+      render() {
+        let title = "TusLibros Puntocón"
+        let content = "Where am I?"
+        const router = {
+          current: () => this.state.path,
+          navigate: (path, state) => {
+            // http://es6-features.org/#SpreadOperator
+            this.setState({ ...state, path: path })
+          },
+          resetCartSize: () => {this.setState({cartSize : 0})},
+          addToCartSize: (amountToChage) => {this.setState({cartSize : this.state.cartSize + amountToChage})},
+          }
+    
+        if (this.state.path === "/") {
+          content = (<LoginView
+            router={router}
+          />)
+        } else if (this.state.path === "/catalog") {
+          content = (<CatalogView
+            router={router}
+            cartId={this.state.cartId}
+            catalog={this.state.catalog}
+          />)
+        } else if (this.state.path === "/cartList") {
+          content = (<CartView
+            router={router}
+            cartId={this.state.cartId}
+            creditCard={this.userCreditCard()}
+          />)
+        } else if (this.state.path === "/details") {
+          content = (<BookDetailsView
+            router={router}
+            cartId={this.state.cartId}
+            selectedBook={this.state.selectedBook}
+          />)
+        } else if (this.state.path === "/history") {
+          content = (<HistoryView
+            router={router}
+            cartId={this.state.cartId}
+            user={this.state.user}
+            pass={this.state.pass}
+            catalog={this.state.catalog}
+          />)
+        } else if (this.state.path === "/ticket") {
+          content = (<PurchaseDetailView
+            router={router}
+            ticket={this.state.ticket}
+            catalog={this.state.catalog}
+          />)
+        }
+    
+        return (
+          <div>
+            <MyToolBar
+              title={title}
+              router={router}
+              cartSize={this.state.cartSize}
+            />
+            <Container maxWidth="sm">
+              <div style={{ marginTop: 24 , marginBottom: 200}}>
+                {content}
+              </div>
+            </Container>
+          </div>
+        );
+      }
+    }
+
+    class ErrorMessageComponent extends React.Component {
+      constructor(props) {
+        super(props)
+      }
+    
+      renderErrorIfExists() {
+        let error = this.props.error
+        return error
+          ? (<div style={{color: "red"}}> {error} </div>)
+          : null;
+      }
+    
+      render() {
+        const {
+          router,
+          classes,
+          error,
+        } = this.props
+    
+        return (
+          <div>
+            { this.renderErrorIfExists()}
+          </div>
+        )
+      }
+    }
+    
+    // Add style
+    const ErrorMessage = withStyles(styles, {
+      withTheme: true
+    })(ErrorMessageComponent)
+    class CartListComponent extends React.Component {
+      constructor(props) {
+        super(props)
+    
+        this.state = {
+          cartListing: [],
+          catalog: null,
+          loading: true,
+          error: "",
+        }
+      }
+    
+      clickCheckout() {
+    
+        let userCard = this.props.creditCard
+        let cartID = this.props.cartId
+    
+        getLocalAsJson(`checkOutCart?cartId=${cartID}&ccn=${userCard.ccn}&cced=${userCard.cced}&cco=${userCard.cco}`)
+          .then(function (response) {
+            return response.json()
+          })
+          .then(function (json) {
+            if (!json.result) {
+              throw json.error
+            }
+            return json.result
+          })
+          .then( (checketOutItems) => {
+            this.props.router.resetCartSize()
+            this.props.router.navigate('/ticket',
+                  { ticket: checketOutItems })
+          })
+          .catch((error) => {
+            console.log('Looks like there was a problem: \n', error)
+            this.setState({error: error})
+          });
+      }
+    
+      completeCartInfoFromCatalog(catalog, amountByIsbn) {
+        let cartListing = []
+        catalog.forEach( (book) => {
+          if (book.isbn in amountByIsbn) {
+            book.amount = amountByIsbn[book.isbn]
+            cartListing.push(book)
+          }
+        })
+        return cartListing
+      }
+    
+      renderCheckoutButton() {
+        return this.state.cartListing.length
+          ? (<Button
+              key={"checkoutButton"}
+              onClick={ ()=>this.clickCheckout() }>
+              CHECKOUT
+            </Button>)
+          : "No hay elementos en el carrito";
+      }
+    
+      // TODO: Refactor esto esta horrible
+      componentDidMount(){
+        this.setState({
+          loading: true,
+        })
+    
+        let amountByIsbn = {}
+    
+        getLocalAsJson(`listCart?cartId=${this.props.cartId}`)
+          .then(function (response) {
+            return response.json()
+          })
+          .then((json)=> {
+            amountByIsbn = json.result
+          })
+          .then(()=> {
+            return getLocalAsJson(`catalog?`)
+          })
+          .then((response) => {
+            return response.json()
+          })
+          .then((json)=>{
+            return this.completeCartInfoFromCatalog(json.result, amountByIsbn)
+          })
+          .then((listing) => {
+            this.setState({
+              loading: false,
+              cartListing: listing
+            })
+          })
+          .catch(function (error) {
+            console.log('Looks like there was a problem: \n', error);
+          });
+      }
+    
+      render() {
+        const {
+          router,
+          classes,
+          cartId,
+          creditCard,
+        } = this.props
+    
+        const {
+          cartListing,
+          loading,
+          error,
+        } = this.state
+    
+        if (loading) {return( <div>Loading...</div>)}
+    
+        return (
+          <div>
+            <Typography variant="h4" component="h4" gutterBottom>
+              CARRITO
+            </Typography>
+    
+            <BookListing
+              bookListing={cartListing}
+              router={router}
+              classes={classes}
+              cartId={cartId}
+            />
+    
+            { this.renderCheckoutButton() }
+    
+            <ErrorMessage error={error} />
+    
+          </div>
+        )
+      }
+    }
+    
+    // Add style
+    const CartView = withStyles(styles, {
+      withTheme: true
+    })(CartListComponent)
+    class PurchaseDetailViewComponent extends React.Component {
+      constructor(props) {
+        super(props)
+    
+        this.state = {
+          loading: true
+        }
+      }
+    
+      componentDidMount() {
+        this.setState({
+          loading: false
+        })
+      }
+    
+      render() {
+        const {
+          router,
+          classes,
+          ticket,
+          cartId,
+          catalog,
+        } = this.props
+    
+        const {
+          loading
+        } = this.state
+    
+    
+        if (loading) {return( <div>Loading...</div> )}
+    
+        return (
+          <div>
+            <Typography component="h3" gutterBottom>
+              TICKET
+            </Typography>
+    
+            <TicketList
+              router={router}
+              classes={classes}
+              tickets={[ticket]}
+              catalog={catalog}
+            />
+    
+          </div>
+        )
+      }
+    }
+    
+    // Add style
+    const PurchaseDetailView = withStyles(styles, {
+      withTheme: true
+    })(PurchaseDetailViewComponent)
+    class TicketComponent extends React.Component {
+      constructor(props) {
+        super(props)
+    
+        this.state = {
+          total: 0,
+          loading: true
+        }
+      }
+    
+      componentDidMount() {
+        let totalCost = 0
+        this.props.ticket.forEach( (ticketItem) => {
+          totalCost += ticketItem.total
+        })
+    
+        this.setState({
+          loading: false,
+          total: totalCost
+        })
+      }
+    
+      renderTicketLines(ticket, classes) {
+        let ticketElements = ticket.map((bookSale, ix) => {
+          return (
+            <TicketLine
+              key={"ticketline_" + ix}
+              bookSale={bookSale}
+              classes={classes}
+              catalog={this.props.catalog} />
+          )
+        })
+        return ticketElements
+      }
+    
+      render() {
+        const {
+          router,
+          classes,
+          ticket,
+          cartId,
+          catalog
+        } = this.props
+    
+        const {
+          total,
+          loading
+        } = this.state
+    
+    
+        if (loading) {return( <div>Loading...</div> )}
+    
+        return (
+          <div className={classes.ticket}>
+            { this.renderTicketLines(ticket, classes) }
+          </div>
+        )
+      }
+    }
+    
+    // Add style
+    const Ticket = withStyles(styles, {
+      withTheme: true
+    })(TicketComponent)
+    class TicketLineComponent extends React.Component {
+      constructor(props) {
+        super(props)
+    
+        this.state = {
+          total: 0,
+          loading: true
+        }
+      }
+    
+      componentDidMount() {
+        this.setState({
+          loading: false
+        })
+      }
+    
+      getBookName(item) {
+    
+        let book = this.props.catalog.find( (book) => { return book.isbn == item } )
+    
+        return book ? book.name : item
+      }
+    
+      render() {
+        const {
+          classes,
+          bookSale,
+          catalog
+        } = this.props
+    
+        const {
+          loading
+        } = this.state
+    
+    
+        if (loading) {return( <div>Loading...</div> )}
+    
+        return (
+          <div key={bookSale.item} className={classes.ticketElement}>
+            <div className={classes.ticketQuantity}>{bookSale.quantity}</div>
+            <div className={classes.ticketBook}>{this.getBookName(bookSale.item)}</div>
+            <div className={classes.ticketPrice}>{bookSale.total}</div>
+          </div>
+        )
+      }
+    }
+    
+    // Add style
+    const TicketLine = withStyles(styles, {
+      withTheme: true
+    })(TicketLineComponent)
+    class TicketListComponent extends React.Component {
+      constructor(props) {
+        super(props)
+    
+        this.state = {
+          total: 0,
+          costoFinal: 0,
+          loading: true
+        }
+      }
+    
+      costoFinalTicketHistory(ticketHistory) {
+        let costoFinal = 0
+        ticketHistory.forEach((ticket) => {
+          ticket.forEach((item) => {
+            costoFinal += item.total
+          })
+        })
+        return costoFinal
+      }
+    
+      componentDidMount() {
+        this.setState({
+          loading: false,
+          costoFinal: this.costoFinalTicketHistory(this.props.tickets)
+        })
+      }
+    
+      ticketHeaderLine() {
+        return { quantity: 'CANT', item: 'LIBRO', total: 'TOTAL' }
+      }
+    
+      render() {
+        const {
+          router,
+          classes,
+          tickets,
+          catalog,
+        } = this.props
+    
+        const {
+          total,
+          loading,
+          costoFinal
+        } = this.state
+    
+    
+        if (loading) {return( <div>Loading...</div> )}
+    
+        return (
+          <div>
+    
+            <TicketLine
+              key={"ticketline_header"}
+              bookSale={this.ticketHeaderLine()}
+              classes={classes}
+              catalog={catalog}
+              />
+    
+            {
+              tickets.map((ticket, ix) => {
+                return (<Ticket className={classes.ticket}
+                  key={"ticket_" + ix}
+                  classes={classes}
+                  router={router}
+                  ticket={ticket}
+                  catalog={catalog}/>)
+              })
+            }
+    
+            <div className={classes.totalPrice}>
+              TOTAL: {costoFinal}
+            </div>
+          </div>
+        )
+      }
+    }
+    
+    // Add style
+    const TicketList = withStyles(styles, {
+      withTheme: true
+    })(TicketListComponent)
+    class HistoryComponent extends React.Component {
+      constructor(props) {
+        super(props)
+    
+        this.state = {
+          error:"",
+          ticketHistory: [],
+          loading: true,
+        }
+      }
+    
+      componentDidMount(){
+        getLocalAsJson(`listPurchases?clientId=${this.props.user}&password=${this.props.pass}`)
+          .then((response) => {
+            return response.json()
+          })
+          .then((json)=>{
+            return json.result
+          })
+          .then((ticketHistory) => {
+            this.setState({
+              loading: false,
+              ticketHistory: ticketHistory
+            })
+          })
+          .catch((error)=> {
+            console.log('Looks like there was a problem: \n', error);
+            this.setState({ error: error , loading: false})
+          });
+      }
+    
+      render() {
+        const {
+          router,
+          classes,
+          cartId,
+          catalog
+        } = this.props
+    
+        const {
+          ticketHistory,
+          loading,
+          error,
+        } = this.state
+    
+        if (loading) {return( <div>Loading...</div>)}
+        if (error) {return( <ErrorMessage error={error} />)}
+    
+        return (
+          <div>
+            <Typography variant="h4" component="h4" gutterBottom>
+              HISTORIAL
+            </Typography>
+    
+            <TicketList
+              router={router}
+              classes={classes}
+              tickets={ticketHistory}
+              catalog={catalog}
+            />
+    
+          </div>
+        )
+      }
+    }
+    
+    // Add style
+    const HistoryView = withStyles(styles, {
+      withTheme: true
+    })(HistoryComponent)
+    class BookListing extends React.Component {
+      constructor(props) {
+        super(props)
+    
+        this.state = {
+          loading: true
+        }
+      }
+    
+      renderBookListing() {
+        const {
+          bookListing,
+          router,
+          classes,
+          cartId
+        } = this.props
+    
+        let bookListingsCart = bookListing.map((book) => {
+         return (
+            <BookListingItem
+              key={book.isbn + "_listing"}
+              router={router}
+              book={book}
+              classes={classes}
+              cartId={cartId}
+            /> )
+          })
+    
+        return bookListingsCart
+      }
+    
+      componentDidMount(){
+        this.setState({
+          loading: false
+        })
+      }
+    
+      render() {
+        const {
+          loading
+        } = this.state
+    
+        if (loading) {return( <div>Loading...</div>)}
+    
+        return (
+          <div>
+            { this.renderBookListing() }
+          </div>
+        )
+      }
+    }
+    
+    // Add style
+    const BookListingStyle = withStyles(styles, {
+      withTheme: true
+    })(BookListing)
+    class BookListingItemComponent extends React.Component {
+      constructor(props) {
+        super(props)
+    
+        this.state = {
+          catalog: null,
+          loading: false,
+        }
+      }
+    
+      componentDidMount(){
+        this.setState({
+          loading: false,
+        })
+      }
+    
+      render() {
+        const {
+          router,
+          book,
+          classes,
+          cartId
+        } = this.props
+    
+        const {
+          loading
+        } = this.state
+    
+    
+        if (loading) {return( <div>Loading...</div>)}
+    
+        return (
+          <div
+          className={classes.listingBook}
+          key={book.isbn + "_listing"}
+           >
+            <div
+              className={classes.listingBookItem}
+              key={book.isbn}
+              onClick={ ()=> router.navigate('/details',
+                  { selectedBook: book })}>
+              <div className={classes.listingBookItemName}>{book.name}</div>
+              <div className={classes.listingBookItemIsbn}>[ISBN: {book.isbn}]</div>
+              <div className={classes.listingBookItemPrice}>${book.price}</div>
+            </div>
+    
+    
+            <div
+              className={classes.listingBookBuy}
+              key={book.isbn + "_buy"}>
+              <BookAdder
+                classes={classes}
+                bookIsbn={book.isbn}
+                cartId={cartId}
+                router={this.props.router}/>
+            </div>
+          </div>
+        )
+      }
+    }
+    
+    // Add style
+    const BookListingItem = withStyles(styles, {
+      withTheme: true
+    })(BookListingItemComponent)
+    class BookAdderComponent extends React.Component {
+      constructor(props) {
+        super(props)
+        this.state = {
+          cantidadEnCart: 0,
+          loading: true,
+        }
+      }
+    
+      modifyCart(cartAction, booksToChange) {
+        getLocalAsJson(`${cartAction}?bookQuantity=${Math.abs(booksToChange)}&bookIsbn=${this.props.bookIsbn}&cartId=${this.props.cartId}`)
+          .then((response) => {
+            return response.json()
+          })
+          .then((json) => {
+            if (!json.result) { throw json.error }
+          })
+          .then(() => {
+            this.setState({
+              loading: false,
+              cantidadEnCart: this.state.cantidadEnCart + booksToChange
+            })
+            this.props.router.addToCartSize(booksToChange);
+          })
+          .catch(err => {
+            console.log('Che ojo, modifyCart', cartAction ,', : \n', err);
+            this.setState({
+              loading: false
+            })
+          });
+      }
+    
+      clickAddBook() {
+        this.modifyCart("addToCart", 1)
+      }
+    
+      clickRemoveBook() {
+        this.modifyCart("removeFromCart", -1)
+      }
+    
+      componentDidMount(){
+        getLocalAsJson(`listCart?cartId=${this.props.cartId}`)
+          .then((response) => {
+            return response.json()
+          })
+          .then((json) => {
+            let amountByIsbn = json.result
+            return amountByIsbn[this.props.bookIsbn] || 0
+          })
+          .then((cantEnServer) => {
+            this.setState({
+              loading: false,
+              cantidadEnCart: cantEnServer
+            })
+          })
+          .catch(err => {
+            console.log('HUBO UN ERROR: \n', err);
+            this.setState({
+              loading: false,
+              error: err,
+            })
+          });
+      }
+    
+      render() {
+        const {
+          cartId,
+          bookIsbn,
+          router,
+          classes,
+        } = this.props
+    
+        const {
+          cantidadEnCart,
+          loading,
+          error,
+        } = this.state
+    
+    
+        if (loading) {return( <div>Loading...</div>)}
+        if (error) { return( <ErrorMessage error={error} />)}
+    
+        return (
+           <div className={classes.bookAdder}>
+    
+            <Button onClick={(ev)=>this.clickRemoveBook()}>
+              [-]
+            </Button>
+    
+            <div className={classes.bookAdderCantidad}>
+              {cantidadEnCart}
+            </div>
+    
+            <Button onClick={(ev)=>this.clickAddBook()}>
+              [+]
+            </Button>
+    
+          </div>
+        )
+      }
+    }
+    
+    // Add style
+    const BookAdder = withStyles(styles, {
+      withTheme: true
+    })(BookAdderComponent)
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Initial render
+    //
+    ReactDOM.render(
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <App />
+      </ThemeProvider>,
+      document.getElementById('root')
+    )
+  </script>
+
+  <!-- <button onclick="window.location.reload(true)">reload</button> -->
+</body>
+
+</html>
